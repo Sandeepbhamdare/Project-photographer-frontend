@@ -1,38 +1,757 @@
-.App {
-  text-align: center;
+/* @import url('https://fonts.googleapis.com/css2?family=Galdeano&family=Inder&family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap'); */
+
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.galdeano-regular {
+  font-family: "Galdeano", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.inria-sans-regular {
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.inder-regular {
+  font-family: "Inder", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.istok-web-regular {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.overflow-x {
+  overflow-x: hidden;
+}
+
+
+/* Authentication Page (signup & loign) */
+
+.auth-container {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../public/Auth-Background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+}
+
+.login-form {
+  height: 60vh;
+}
+
+.signup-form {
+  height: 70vh;
+}
+
+.auth-form {
+  width: 40vw;
+  background-color: #FFEFEF78;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 20px;
+  position: relative;
+}
+
+.auth-form>h1 {
+  text-align: center;
+  margin-block: 20px;
+  font-size: 40px;
+}
+
+.auth-form>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 70%;
+  font-size: 17px;
+}
+
+.auth-form>div>input,
+.auth-form>div>select {
+  padding: 8px;
+  width: 60%;
+  background-color: #000000A3;
+  border: none;
+  border-radius: 12px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.auth-form>div>select {
+  width: 30%;
+  margin-inline: 60px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 30px;
+  margin-block: 5px;
+}
+
+.auth-btn {
+  padding: 5px 15px;
+  font-size: 16px;
+  border-radius: 15px;
+  border: 1px solid #FFC94A;
+  background-color: #FFC94A;
+}
+
+.auth-btn:hover {
+  background-color: #ffffff00;
+  color: #FFC94A;
+}
+
+.reset-btn {
+  border-radius: 16px;
+  padding: 5px 20px;
+  border: none;
+}
+
+.reset-btn:hover {
+  background-color: #e8e8e8ed;
+}
+
+.home-link {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 30px;
+  color: black;
+}
+
+/* Navbar */
+
+.navbar {
+  height: 75px;
+  width: 100vw;
+  background-color: #030138;
+  color: white;
+}
+
+.navbar>ul,
+.nav-link {
+  height: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 80px;
+}
+
+.nav-link {
+  width: 400px;
+}
+
+.nav-link-defaul {
+  text-decoration: none;
+  color: white;
+  font-size: 13px;
+}
+
+
+.logo-img {
+  height: 55px;
+  border-radius: 15px;
+}
+
+.profile-img {
+  height: 50px;
+  border-radius: 22px;
+}
+
+/* hero section */
+.hero-section {
+  width: 100vw;
+  height: 65vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-block: 55px;
+}
+
+.hero-section>div {
+  width: 40%;
+}
+
+.hero-section>div>div {
+  line-height: 50px;
+}
+
+.hero-section>div>div>h1 {
+  font-size: 100px;
+}
+
+.hero-section>div>div>h5 {
+  font-size: 20px;
+}
+
+.hero-section>div>h6 {
+  width: 55%;
+  font-size: 11px;
+}
+
+.explore-btn {
+  margin-block: 15px;
+  padding: 8px 25px;
+  background-color: #FF9800;
+  border: 1px solid #FF9800;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.explore-btn:hover {
+  color: #FF9800;
+  background-color: #ffffff00;
+}
+
+.img-section {
+  text-align: center;
+}
+
+.img-section>img {
+  width: 450px;
+  border-radius: 20px;
+}
+
+/* Footer Section */
+
+.footer-section {
+  width: 100vw;
+  height: 50vh;
+  background-color: #222831;
+  color: white;
+  padding: 10px 0px;
+  font-weight: 100;
+}
+
+.footer-section>div {
+  text-align: center;
+  margin-block: 25px;
+}
+
+.footer-section>div>h1 {
+  margin-block: 15px;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+.footer-btn {
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid white;
+  background-color: #ffffff00;
+  color: white;
+}
+
+.footer-btn:hover {
+  background-color: #ffffff40;
+}
+
+.footer-main-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 80px;
+}
+
+.footer-main-section>div>img {
+  width: 180px;
+  border-radius: 20px;
+}
+
+.footer-main-section>div>p {
+  font-size: 12px;
+}
+
+.footer-link {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-social-links>h2,
+.footer-link>h2 {
+  margin-bottom: 5px;
+  font-weight: 100;
+  font-size: 18px;
+}
+
+.footer-link>li {
+  font-size: 13px;
+}
+
+.footer-link:hover {
+  cursor: pointer;
+}
+
+.footer-social-links>h2 {
+  margin-block: 20px;
+}
+
+.footer-social-links>ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-social-links>ul>li {
+  font-size: 25px;
+}
+
+.footer-section>p {
+  text-align: center;
+  margin-block: 20px;
+  font-size: 12px;
+}
+
+
+/* Services Section or About Section */
+
+.services-section,
+.about-section {
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-block: 40px;
+}
+
+.services-section>h2,
+.about-section>h2 {
+  margin-bottom: 30px;
+  font-size: 25px;
+  padding: 5px 20px;
+  border-bottom: 1px solid;
+}
+
+.services-section>div,
+.about-section>div {
+  height: 80%;
+  width: 60%;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #030138;
+  border-radius: 20px;
+  color: white;
+  padding: 15px;
+}
+
+.about-section>div {
+  align-items: center;
+}
+
+.services-section>div>div {
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+}
+
+.services-section>div>div>img {
+  width: 120px;
+  border-radius: 10px;
+}
+
+.services-section>div>div>p {
+  margin-block: 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.about-section>div>p {
+  font-size: 18px;
+  margin-left: 60px;
+}
+
+
+/* Search Section */
+
+.search-section {
+  width: 100vw;
+  height: 30vh;
+  background-color: #FFC94A;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 70px;
+}
+
+.search-section>form,
+.search-section>div {
+  width: 50%;
+}
+
+.search-section>form>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block: 5px;
+  font-size: 15px;
+  padding-inline: 80px;
+}
+
+.search-section>form>div>p {
+  width: 9%;
+  font-size: 25px;
+  color: #2b2b2b;
+}
+
+.search-icon{
+  margin-top: 10px;
+}
+
+.search-section>form>div>input {
+  width: 270px;
+  padding: 10px;
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 10px;
+}
+
+.search-btn {
+  color: white;
+  background-color: #0B31FA;
+  font-size: 15px;
+  padding: 12px 21px;
+  border: 1px solid #0B31FA;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.search-btn:hover {
+  background-color: #FFC94A;
+  color: #0B31FA;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-around;
+  grid-row-gap: 25px;
+  padding: 35px 60px;
+}
+
+/* Card Section */
+.card {
+  width: 240px;
+  height: 205px;
+  background-color: #D9D9D9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+}
+
+.card:hover {
+  box-shadow: 5px 5px 10px #bfbbbb;
+}
+
+.card>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.card>div>img {
+  border-radius: 30px;
+  border: 1px solid #0B31FA;
+}
+
+.card>p {
+  font-size: 20px;
+}
+
+.card>p>span {
+  font-weight: 700;
+}
+
+.location-icon {
+  font-size: 25px;
+  margin-right: 10px;
+  color: #fd4f4f;
+}
+
+.edit-save,
+.contact-btn {
+  padding: 10px 30px;
+  margin-block: 5px;
+  border-radius: 5px;
+  border: 1px solid #0B31FA;
+  background-color: #0B31FA;
+  color: white;
+  font-weight: 700;
+}
+
+.edit-save:hover,
+.contact-btn:hover {
+  background-color: #ffffff00;
+  color: #0B31FA;
+}
+
+/* Contact Photographer Page + some Profile page CSS */
+
+.contact-section {
+  width: 100vw;
+  height: 45vh;
+  background-color: #FFC94A;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  align-items: center;
+  gap: 13%;
+  position: relative;
+}
+
+.contact-section>img {
+  width: 200px;
+  border-radius: 100px;
+}
+
+.contact-section>div {
+  font-weight: 700;
+}
+
+.photograper-name {
+  font-size: 30px;
+}
+
+.photograper-city {
+  font-size: 17px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.contact-icons {
+  font-size: 25px;
+}
+
+.back-btn {
+  font-size: 30px;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+
+.order-detail2>p,
+.photograper-contact>p {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+}
+
+.photograper-contact>p>span {
+  font-size: 18px;
+  margin-block: 5px;
+}
+
+.orderbtn-section {
+  width: 100vw;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderbtn-section>button {
+  padding: 15px 40px;
+  font-size: 20px;
+  color: white;
+  background-color: #3B0BFA;
+  border: 1px solid;
+  border-radius: 7px;
+}
+
+.orderbtn-section>button:hover {
+  background-color: #2803bc;
+}
+
+.red-icon {
+  color: #fd4f4f;
+}
+
+.edit-icon {
+  font-size: 30px;
+  position: absolute;
+  top: 105px;
+  right: 100px;
+}
+
+.order-head {
+  margin: 15px auto;
+  font-weight: 600;
+  border-bottom: 1px solid;
+  width: 140px;
+  text-align: center;
+  padding-bottom: 8px;
+  font-size: 20px;
+}
+
+.order-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order,
+.order-detail1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.order {
+  background-color: #bfbbbb;
+  width: 60vw;
+  padding-block: 25px;
+  margin-block: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 5px;
+  position: relative;
+}
+
+.time-date {
+  font-weight: 500;
+  position: absolute;
+  top: 6px;
+  left: 15px;
+  font-size: 12px;
+  color: #00000096;
+}
+
+.order-detail1>img {
+  width: 90px;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+
+.order-icons {
+  font-size: 20px;
+}
+
+.order-detail2>p>span {
+  font-size: 16px;
+}
+
+/* Popup Msg Section */
+
+.container-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-profile,
+.popUp-section {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  background-color: #00000096;
+  position: fixed;
+}
+
+.popUp-section>div {
+  background-color: #0B31FA;
+  height: 50%;
+  width: 55%;
+  color: white;
+  font-size: 19px;
+  border-radius: 15px;
+}
+
+.success-icon {
+  color: #0c9d0c;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* edit Profile section*/
+
+.edit-profile>form {
+  width: 50%;
+  background-color: #ededed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.edit-profile>form>div {
+  display: flex;
+  flex-direction: row;
+  margin-block: 10px;
+}
+
+.edit-profile>form>div>p {
+  width: 75px;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.edit-profile>form>div>h3 {
+  margin: 10px;
+}
+
+.edit-profile>form>div>input {
+  width: 280px;
+  padding: 7px;
+  background-color: #929292;
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-profile>form>img {
+  border-radius: 60px;
+}
+
+.close-icon {
+  position: absolute;
+  right: 20px;
+  font-size: 30px;
+  top: 15px;
 }
