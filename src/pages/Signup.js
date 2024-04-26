@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
 
+    const navigate = useNavigate()
     const [newUser, setNewUser] = useState({ name: "", email: "", password: "", city: "", phone: "", userType: undefined })
     const [loading, setLoading] = useState(false);
+
     const { name, email, password, city, phone, userType } = newUser;
 
     const onChange = (e) => {
         setNewUser({ ...newUser, [e.target.name]: e.target.value })
     }
 
-    const hendleSignup = async (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault()
         setLoading(true)
         const response = await fetch("http://localhost:3002/auth/register", {
@@ -25,13 +29,16 @@ const Signup = () => {
         })
         const data = await response.json();
         setLoading(false)
-        console.log(data)
+        if (data.status === false) {
+            toast.error(data.message)
+        } else {
+          navigate("/login")
+        }
     }
 
-    const hendleReset = () => {
-        {
-            setNewUser({ name: "", email: "", password: "", city: "", phone: "", userType: "" })
-        }
+    const handleReset = (e) => {
+        e.preventDefault();
+        setNewUser({ name: "", email: "", password: "", city: "", phone: "", userType: undefined })
     }
 
     return (
@@ -73,13 +80,14 @@ const Signup = () => {
                     </div>
 
                     <span className="btn-container">
-                        <button className="auth-btn inder-regular" onClick={hendleSignup}>Submit</button>
-                        <button className="reset-btn">reset</button>
+                        <button className="auth-btn inder-regular" onClick={handleSignup}>Submit</button>
+                        <button className="reset-btn" onClick={handleReset}>reset</button>
                     </span>
                     <p>Already have an account ? <Link to="/login">Log in</Link> </p>
                 </form>
             </div>
             {loading ? <Loader /> : ""}
+            <ToastContainer />
         </>
     )
 }
