@@ -1,13 +1,17 @@
 import { PiInstagramLogo, PiLinkedinLogo, PiTelegramLogo, PiYoutubeLogo } from "react-icons/pi";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 const Footer = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+
+    const userData = localStorage.getItem("userData")
+    console.log(userData)
+
     return (
         <>
             <section className="footer-section istok-web-regular">
                 <div>
                     <h1>So what are you waiting for?</h1>
-                    <button className="footer-btn" onClick={()=>navigate('/signup')}>Sign Up</button>
+                    <button className="footer-btn" onClick={() => userData===undefined?navigate('/signup'):""}>Sign Up</button>
                 </div>
                 <div className="footer-main-section">
                     <div>
@@ -16,9 +20,9 @@ const Footer = () => {
                     </div>
                     <ul className="footer-link">
                         <h2>Company</h2>
-                        <li onClick={()=>navigate("/")}>Home</li>
-                        <li onClick={()=>navigate("/about")}>About us</li>
-                        <li onClick={()=>navigate("/service")}>Services</li>
+                        <li onClick={() => navigate("/")}>Home</li>
+                        <li onClick={() => navigate("/about")}>About us</li>
+                        <li onClick={() => navigate("/service")}>Services</li>
                     </ul>
                     <div className="footer-social-links">
                         <h2>Follow Us On</h2>
