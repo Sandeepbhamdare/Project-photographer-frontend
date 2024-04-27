@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-const HeroSection = () => {
+const HeroSection = (props) => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     return (
         <>
@@ -16,10 +16,10 @@ const HeroSection = () => {
                     <h6>"Capturing moments that speak louder than words.
                         Welcome to our world."</h6>
 
-                    <button className="explore-btn" onClick={()=>navigate("/search")}>Explore</button>
+                    <button className="explore-btn" onClick={() => props.userData ? navigate("/search") : navigate('/login')}>Explore</button>
                 </div>
                 <div className="img-section">
-                    <img src="./hero-section-img.jpg"  />
+                    <img src="./hero-section-img.jpg" />
                 </div>
 
             </section>

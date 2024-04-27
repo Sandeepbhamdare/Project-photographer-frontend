@@ -17,15 +17,15 @@ function App() {
   const userData = localStorage.getItem('userData')
 
   useEffect(() => {
-    userData ? navigate("/") : navigate('/login')
-  },[])
+   navigate("/") 
+  },[userData])
 
   return (
     <>
 
       <Routes>
         <Route path='/' element={<Dashbord />}>
-          <Route index element={<HeroSection />} />
+          <Route index element={<HeroSection userData={userData} />} />
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
           <Route path='search' element={<SearchPhotographer />} />
