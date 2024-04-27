@@ -11,7 +11,7 @@ const Footer = () => {
             <section className="footer-section istok-web-regular">
                 <div>
                     <h1>So what are you waiting for?</h1>
-                    <button className="footer-btn" onClick={() => userData===undefined?navigate('/signup'):""}>Sign Up</button>
+                    <button className="footer-btn" onClick={() => !userData?navigate('/signup'):""}>Sign Up</button>
                 </div>
                 <div className="footer-main-section">
                     <div>
