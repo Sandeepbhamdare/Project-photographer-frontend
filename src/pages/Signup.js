@@ -29,10 +29,11 @@ const Signup = () => {
         })
         const data = await response.json();
         setLoading(false)
-        if (data.status === false) {
-            toast.error(data.message)
+
+        if (data.status) {
+            navigate("/login")
         } else {
-          navigate("/login")
+            toast.error(data.message)
         }
     }
 
