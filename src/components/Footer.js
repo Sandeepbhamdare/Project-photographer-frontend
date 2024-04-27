@@ -1,10 +1,9 @@
 import { PiInstagramLogo, PiLinkedinLogo, PiTelegramLogo, PiYoutubeLogo } from "react-icons/pi";
 import {useNavigate } from "react-router-dom";
 const Footer = () => {
-    const navigate = useNavigate()
 
+    const navigate = useNavigate()
     const userData = localStorage.getItem("userData")
-    console.log(userData)
 
     return (
         <>
