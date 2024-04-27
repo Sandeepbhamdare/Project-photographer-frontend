@@ -7,10 +7,19 @@ import Service from './pages/Services';
 import About from './pages/About';
 import Profile from './pages/Profile';
 import SearchPhotographer from './pages/Search';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Contactphotographer from './pages/Contactphotographer';
+import { useEffect } from 'react';
 
 function App() {
+
+  const navigate = useNavigate()
+  const userData = localStorage.getItem('userData')
+
+  useEffect(() => {
+    userData ? navigate("/") : navigate('/login')
+  },[])
+
   return (
     <>
 
@@ -24,8 +33,10 @@ function App() {
           <Route path='contact_photographer' element={<Contactphotographer />} />
         </Route>
 
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
+        {!userData ? <>
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+        </> : ""}
       </Routes>
     </>
   );
