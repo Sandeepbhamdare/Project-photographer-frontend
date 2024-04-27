@@ -1,26 +1,48 @@
 import { IoLocation } from "react-icons/io5";
-import { MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
+import { MdLogout, MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
 import { FaUserPen } from "react-icons/fa6";
 import Editprofile from "../components/Editprofile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
-const Profile = () => {
+const Profile = (props) => {
 
+    const navigate = useNavigate()
     const [isEditPro, setIsEditPro] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const userData = JSON.parse(props.userData)
+
+    useEffect(() => {
+        !userData && navigate('/login')
+    }, [])
+
+    const handleLogout = () => {
+        setIsLoading(true)
+        setTimeout(() => {
+            localStorage.removeItem('userData')
+            setIsLoading(false)
+            navigate('/login')
+        }, [3000])
+    }
 
     return (
         <>
             <section className="contact-section istok-web-regular">
                 <img src="./demo-profile.jpg" />
                 <div>
-                    <p className="photograper-name">Niraj singh</p>
-                    <p className="photograper-city"> <span><IoLocation className="contact-icons red-icon" /></span>Indore , MP</p>
+                    <p className="photograper-name">{userData && userData.name}</p>
+                    <p className="photograper-city"> <span><IoLocation className="contact-icons red-icon" /></span>{userData && userData.city} , MP</p>
                 </div>
                 <div className="photograper-contact">
-                    <p> <MdOutlinePhoneInTalk className="contact-icons" /><span> +91 6263298305</span></p>
-                    <p> <MdOutlineMail className="contact-icons " /><span>singhniraj@gmail.com</span></p>
+                    <p> <MdOutlinePhoneInTalk className="contact-icons" /><span> +91{userData && userData.phone}</span></p>
+                    <p> <MdOutlineMail className="contact-icons " /><span>{userData && userData.email}</span></p>
                 </div>
                 <FaUserPen className="edit-icon" onClick={() => setIsEditPro(!isEditPro)} />
+                <button className="logout-btn" onClick={handleLogout}>
+                    <MdLogout /> LogOut
+                </button>
             </section>
 
 
@@ -50,8 +72,8 @@ const Profile = () => {
                 </div>
             </div >
 
-            {isEditPro ? <Editprofile isEdit={isEditPro} setIsEdit={setIsEditPro}/> : ""}
-
+            {isEditPro ? <Editprofile isEdit={isEditPro} setIsEdit={setIsEditPro} /> : ""}
+            {isLoading ? <Loader msg={"Logging Out.."} /> : ""}
         </>
     )
 }

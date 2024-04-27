@@ -675,6 +675,23 @@
   font-size: 16px;
 }
 
+.logout-btn {
+  position: absolute;
+  font-size: 15px;
+  right: 40px;
+  bottom: 10px;
+  padding: 9px;
+  background-color: #0B31FA;
+  color: white;
+  border: 1px solid #0B31FA;
+  border-radius: 6px;
+}
+
+.logout-btn:hover{
+  background-color: #00000000;
+  color: #3B0BFA;
+}
+
 /* Popup Msg Section */
 
 .container-center {
@@ -759,7 +776,7 @@
 
 /* Loading section */
 
-.loader-section>div{
+.loader-section>div {
   background-color: white;
   height: 40%;
   width: 30%;
@@ -767,9 +784,11 @@
   box-shadow: 5px 5px 10px #0b0b0b;
   flex-direction: column;
 }
-.loadingIcon{
+
+.loadingIcon {
   padding-block: 20px;
 }
+
 .loader-section>div>p {
   margin-block: 2px;
   font-weight: 500;

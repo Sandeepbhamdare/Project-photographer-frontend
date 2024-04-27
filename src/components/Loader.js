@@ -1,5 +1,5 @@
 import { Bars } from 'react-loader-spinner'
-const Loader = () => {
+const Loader = (props) => {
 
     return (
         <>
@@ -15,7 +15,7 @@ const Loader = () => {
                         wrapperClass="loadingIcon"
                         visible={true}
                     />
-                    <p>Loading...</p>
+                    <p>{props.msg?props.msg:"Loading..."}</p>
                     <p>Please wait</p>
                 </div>
             </div>

@@ -17,8 +17,8 @@ function App() {
   const userData = localStorage.getItem('userData')
 
   useEffect(() => {
-   navigate("/") 
-  },[userData])
+    navigate("/")
+  }, [userData])
 
   return (
     <>
@@ -29,7 +29,7 @@ function App() {
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
           <Route path='search' element={<SearchPhotographer />} />
-          <Route path='profile' element={<Profile />} />
+          <Route path='profile' element={<Profile userData={userData} />} />
           <Route path='contact_photographer' element={<Contactphotographer />} />
         </Route>
 
