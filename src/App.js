@@ -13,12 +13,7 @@ import { useEffect } from 'react';
 
 function App() {
 
-  const navigate = useNavigate()
   const userData = localStorage.getItem('userData')
-
-  useEffect(() => {
-    navigate("/")
-  }, [userData])
 
   return (
     <>
@@ -28,8 +23,8 @@ function App() {
           <Route index element={<HeroSection userData={userData} />} />
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
-          <Route path='search' element={<SearchPhotographer />} />
-          <Route path='profile' element={<Profile userData={userData} />} />
+         <Route path='search' element={<SearchPhotographer userData={userData} />} />
+          <Route path='profile' element={<Profile />} />
           <Route path='contact_photographer' element={<Contactphotographer />} />
         </Route>
 

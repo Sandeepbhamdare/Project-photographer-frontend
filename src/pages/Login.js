@@ -30,7 +30,6 @@ const Login = () => {
         const data = await response.json()
         setIsLoading(false)
         if (data.status) {
-            console.log(data.data)
             const userData = JSON.stringify(data.data)
             localStorage.setItem('userData', userData)
             navigate("/")
