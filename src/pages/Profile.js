@@ -1,14 +1,14 @@
-import { IoCloseSharp, IoLocation } from "react-icons/io5";
+import { IoLocation } from "react-icons/io5";
 import { MdLogout, MdManageAccounts, MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
-import { IoMdLock } from "react-icons/io";
 import SettingsSection from "../components/SettingsSection";
 import EditUserForm from "../components/EditUserForm";
 import ChangePassword from "../components/ChangePassword";
 import Orders from "../components/Orders";
+import DeleteForm from "../components/DeleteForm";
 
 const Profile = () => {
 
@@ -18,6 +18,8 @@ const Profile = () => {
     const [isEditPro, setIsEditPro] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [changePassword, setChangePassword] = useState(false)
+    const [isdeleteForm, setIsdeleteForm] = useState(false)
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -96,9 +98,9 @@ const Profile = () => {
                 </button>
 
                 {/* Setting section */}
-
                 {settings ?
-                    <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings} setChangePassword={setChangePassword} /> : ""}
+                    <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings} 
+                    setChangePassword={setChangePassword} setIsdeleteForm={setIsdeleteForm}/> : ""}
             </section>
 
             {/* Order section */}
@@ -106,12 +108,18 @@ const Profile = () => {
 
 
             {/* edit user Form*/}
-
             {isEditPro &&
                 <EditUserForm editUser={editUser} onChange={onChange} setIsEditPro={setIsEditPro} handleEdit={handleEdit} />
             }
+
+            {/* change password form */}
             {changePassword ?
                 <ChangePassword setChangePassword={setChangePassword} /> : ""}
+
+            {/* delete account form  */}
+            {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} /> : ""}
+
+            {/* loading */}
             {isLoading ? <Loader msg={"Logging Out.."} /> : ""}
             <ToastContainer />
         </>
