@@ -1,30 +1,36 @@
 import { IoCloseSharp, IoLocation } from "react-icons/io5";
-import { MdLogout, MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
-import { FaUserPen } from "react-icons/fa6";
+import { MdLogout, MdManageAccounts, MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
+import { IoMdLock } from "react-icons/io";
+import SettingsSection from "../components/SettingsSection";
+import EditUserForm from "../components/EditUserForm";
+import ChangePassword from "../components/ChangePassword";
+import Orders from "../components/Orders";
 
 const Profile = () => {
 
     const localUserData = localStorage.getItem('userData')
 
+    const [settings, setSettings] = useState(false)
     const [isEditPro, setIsEditPro] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [changePassword, setChangePassword] = useState(false)
     const navigate = useNavigate()
 
-    console.log(localUserData)
     useEffect(() => {
-        if(!localUserData){
+        if (!localUserData) {
             navigate('/login')
         }
     }, [])
 
-    const userData =localUserData? JSON.parse(localUserData):null;
+    const userData = localUserData ? JSON.parse(localUserData) : null;
 
-    const [editUser, setEditUser] = useState(userData?{ name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone }:
-        {name:"",city:"",userId:"",phone:""})
+    const [editUser, setEditUser] = useState(userData ?
+        { name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone } :
+        { name: "", city: "", userId: "", phone: "" })
 
     const onChange = (e) => {
         setEditUser({ ...editUser, [e.target.name]: e.target.value })
@@ -40,9 +46,8 @@ const Profile = () => {
             },
             body: JSON.stringify(editUser)
         })
-        console.log(editUser)
         const data = await response.json()
-        console.log(data)
+
         if (data.status) {
             const updateUser = {
                 userId: data.data.userId,
@@ -78,70 +83,35 @@ const Profile = () => {
             <section className="contact-section istok-web-regular">
                 <img src="./demo-profile.jpg" />
                 <div>
-                    <p className="photograper-name">{ userData?userData.name : "Loading..."}</p>
+                    <p className="photograper-name">{userData ? userData.name : "Loading..."}</p>
                     <p className="photograper-city"> <span><IoLocation className="contact-icons red-icon" /></span>{userData ? userData.city : "Loading..."} , MP</p>
                 </div>
                 <div className="photograper-contact">
                     <p> <MdOutlinePhoneInTalk className="contact-icons" /><span> +91{userData ? userData.phone : "Loading..."}</span></p>
                     <p> <MdOutlineMail className="contact-icons " /><span>{userData ? userData.email : "Loading..."}</span></p>
                 </div>
-                <FaUserPen className="edit-icon" onClick={() => setIsEditPro(!isEditPro)} />
+                <MdManageAccounts className="edit-icon" onClick={() => setSettings(!settings)} />
                 <button className="logout-btn" onClick={handleLogout}>
                     <MdLogout /> LogOut
                 </button>
+
+                {/* Setting section */}
+
+                {settings ?
+                    <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings} setChangePassword={setChangePassword} /> : ""}
             </section>
 
+            {/* Order section */}
+            <Orders />
 
-            <p className="order-head">your orders</p>
-            <div className="order-container">
-                <div className="order">
-                    <div className="order-detail1">
-                        <img src="./default-profile.png" />
-                        <p>Bob Jonson</p>
-                    </div>
-                    <div className="order-detail2">
-                        <p><MdOutlineMail className="order-icons" /> <span> bob@gamil.com</span></p>
-                        <p><MdOutlinePhoneInTalk className="order-icons" /> <span> 6263298305</span></p>
-                    </div>
-                    <p className="time-date">20/Jan/2020  2:00AM</p>
-                </div>
-                <div className="order">
-                    <div className="order-detail1">
-                        <img src="./default-profile.png" />
-                        <p>Bob Jonson</p>
-                    </div>
-                    <div className="order-detail2">
-                        <p><MdOutlineMail className="order-icons" /> <span> bob@gamil.com</span></p>
-                        <p><MdOutlinePhoneInTalk className="order-icons" /> <span> 6263298305</span></p>
-                    </div>
-                    <p className="time-date">20/Jan/2020  2:00AM</p>
-                </div>
-            </div >
 
             {/* edit user Form*/}
 
             {isEditPro &&
-                <div className="edit-profile container-center">
-                    <form>
-                        <div>
-                            <h3>Edit Profile</h3>
-                            <IoCloseSharp className="close-icon" onClick={() => setIsEditPro(false)} />
-                        </div>
-                        <img src="./demo-profile.jpg" width={"100px"} />
-                        <div>
-                            <p>Name</p>  <input type="text" name="name" onChange={onChange} value={editUser.name} />
-                        </div>
-
-                        <div>
-                            <p>Contact</p> <input type="tel" name="phone" onChange={onChange} value={editUser.phone} />
-                        </div>
-                        <div>
-                            <p>City</p> <input type="text" name="city" onChange={onChange} value={editUser.city} />
-                        </div>
-                        <button className="edit-save" onClick={handleEdit}>Save</button>
-                    </form>
-                </div>
+                <EditUserForm editUser={editUser} onChange={onChange} setIsEditPro={setIsEditPro} handleEdit={handleEdit} />
             }
+            {changePassword ?
+                <ChangePassword setChangePassword={setChangePassword} /> : ""}
             {isLoading ? <Loader msg={"Logging Out.."} /> : ""}
             <ToastContainer />
         </>
