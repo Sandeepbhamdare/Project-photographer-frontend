@@ -9,6 +9,7 @@ import EditUserForm from "../components/EditUserForm";
 import ChangePassword from "../components/ChangePassword";
 import Orders from "../components/Orders";
 import DeleteForm from "../components/DeleteForm";
+import { IoIosAddCircle } from "react-icons/io";
 
 const Profile = () => {
 
@@ -19,6 +20,7 @@ const Profile = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [changePassword, setChangePassword] = useState(false)
     const [isdeleteForm, setIsdeleteForm] = useState(false)
+    const [addImg, setAddImg] = useState("")
 
     const navigate = useNavigate()
 
@@ -33,6 +35,10 @@ const Profile = () => {
     const [editUser, setEditUser] = useState(userData ?
         { name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone } :
         { name: "", city: "", userId: "", phone: "" })
+
+    const formData = new FormData();
+    formData.append('image', addImg.imgUrl);
+    formData.append('userId', userData.userId);
 
     const onChange = (e) => {
         setEditUser({ ...editUser, [e.target.name]: e.target.value })
@@ -71,6 +77,7 @@ const Profile = () => {
         setIsEditPro(false)
     }
 
+
     const handleLogout = () => {
         setIsLoading(true)
         setTimeout(() => {
@@ -80,9 +87,22 @@ const Profile = () => {
         }, 3000)
     }
 
+    const handleSetProfileImg = async () => {
+        const response = await fetch('http://localhost:3002/user/updateProfileImage', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application-json"
+            },
+            body: formData
+        })
+        const data = await response.json()
+        console.log(data)
+        setAddImg({ isImg: false })
+    }
+
     return (
         <>
-            <section className="contact-section istok-web-regular">
+            <section className="contact-section">
                 <img src="./demo-profile.jpg" />
                 <div>
                     <p className="photograper-name">{userData ? userData.name : "Loading..."}</p>
@@ -99,8 +119,8 @@ const Profile = () => {
 
                 {/* Setting section */}
                 {settings ?
-                    <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings} 
-                    setChangePassword={setChangePassword} setIsdeleteForm={setIsdeleteForm}/> : ""}
+                    <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings}
+                        setChangePassword={setChangePassword} setIsdeleteForm={setIsdeleteForm} /> : ""}
             </section>
 
             {/* Order section */}
@@ -109,7 +129,7 @@ const Profile = () => {
 
             {/* edit user Form*/}
             {isEditPro &&
-                <EditUserForm editUser={editUser} onChange={onChange} setIsEditPro={setIsEditPro} handleEdit={handleEdit} />
+                <EditUserForm editUser={editUser} onChange={onChange} setIsEditPro={setIsEditPro} handleEdit={handleEdit} setAddImg={setAddImg} />
             }
 
             {/* change password form */}

@@ -763,8 +763,17 @@
   border-radius: 5px;
 }
 
-.edit-profile>form>img {
+.Img-Inpute>img {
   border-radius: 60px;
+}
+
+.Img-Inpute>input {
+  display: none;
+}
+
+.Img-Inpute>label {
+  position: absolute;
+  font-size: 20px;
 }
 
 .close-icon {
@@ -814,7 +823,7 @@
   padding: 8px;
 }
 
-.settings-section>li:hover{
+.settings-section>li:hover {
   cursor: pointer;
   background-color: white;
   color: black;
