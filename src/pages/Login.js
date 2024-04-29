@@ -30,10 +30,17 @@ const Login = () => {
         const data = await response.json()
         setIsLoading(false)
         if (data.status) {
-            const userData = JSON.stringify(data.data)
-            localStorage.setItem('userData', userData)
+            const userData = {
+                userId: data.data.userId,
+                name: data.data.name,
+                email: data.data.email,
+                profileUser: data.data.profileUser,
+                userType: data.data.userType,
+                city: data.data.city,
+                phone: data.data.phone
+            }
+            localStorage.setItem('userData', JSON.stringify(userData))
             navigate("/")
-
         } else {
             toast.error(data.message)
         }

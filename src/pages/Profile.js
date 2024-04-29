@@ -38,7 +38,7 @@ const Profile = () => {
 
     const formData = new FormData();
     formData.append('image', addImg.imgUrl);
-    formData.append('userId', userData.userId);
+    formData.append('userId', userData&&userData.userId);
 
     const onChange = (e) => {
         setEditUser({ ...editUser, [e.target.name]: e.target.value })
@@ -47,7 +47,7 @@ const Profile = () => {
     const handleEdit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch('http://localhost:3002/user/updateProfile', {
+        const response = await fetch('https://photo-grapher-api.vercel.app/user/updateProfile', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
