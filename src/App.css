@@ -869,12 +869,33 @@
   padding: 20px;
 }
 
-.review>h1{
+.review>h1 {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-block: 24px;
   gap: 10px;
+}
 
+.review-form {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 65px;
+  gap: 30px;
+  height: 35vh;
+  margin-block: 15px;
+  background-color: #e8e8e8;
+}
+
+.review-form>textarea {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid;
+}
+
+.review-form>button {
+  width: 100px;
+  padding: 10px 19px;
+  align-self: center;
 }
