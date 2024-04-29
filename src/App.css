@@ -829,3 +829,23 @@
   color: black;
   border-radius: 5px;
 }
+/* forget password section */
+
+.forgetPass-section{
+  color: #b51b1b;
+  font-size: 13px;
+  position: absolute;
+  bottom: 35%;
+  right: 30px;
+}
+
+.forgetPass-section:hover{
+  cursor: pointer;
+}
+
+/* .forgetPass-Closebtn{
+  position: absolute;
+  right: 30px;
+  font-size: 20px;
+  top: 15px;
+} */

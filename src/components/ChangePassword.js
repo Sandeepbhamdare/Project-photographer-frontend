@@ -8,7 +8,7 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
     const userData = localUserData ? JSON.parse(localUserData) : null;
 
     const [changePassword, setChangePassword] = useState({ userId: userData && userData.userId, password: "", newPassword: "" })
-   
+
     const onChangePassword = (e) => {
         setChangePassword({ ...changePassword, [e.target.name]: e.target.value })
     };
@@ -16,7 +16,7 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
     const handleChangePassword = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-    
+
         const response = await fetch("https://photo-grapher-api.vercel.app/auth/changePassword", {
             method: "POST",
             headers: {
@@ -51,7 +51,7 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
             <form>
                 <div>
                     <h3>Chage Password</h3>
-                    <IoCloseSharp className="close-icon" onClick={() => setChangePassword({ isChangePassword: false })} />
+                    <IoCloseSharp className="close-icon" onClick={() => setChangePassword(false)} />
                 </div>
                 <div>
                     <p>Current Password</p>  <input type="text" name="password" value={changePassword.password} onChange={onChangePassword} />

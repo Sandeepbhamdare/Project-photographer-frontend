@@ -4,12 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "../components/Loader";
 import "react-toastify/dist/ReactToastify.css";
+import ForgetPassword from "../components/ForgetPass";
 
 const Login = () => {
 
     const [userLogin, setUserLogin] = useState({ email: "", password: "" })
     const { email, password } = userLogin;
     const [isLoading, setIsLoading] = useState(false)
+    const [forgetPass, setForgetPass] = useState({ isforgetPass: false, isForgetPassForm: false })
 
     const navigate = useNavigate()
 
@@ -43,12 +45,14 @@ const Login = () => {
             navigate("/")
         } else {
             toast.error(data.message)
+            setForgetPass({ isforgetPass: true })
         }
     }
 
     const handleReset = (e) => {
         e.preventDefault()
         setUserLogin({ email: "", password: "" })
+
     }
 
     return (
@@ -68,13 +72,22 @@ const Login = () => {
                         <input type="password" name="password" value={userLogin.password} onChange={onChange} />
                     </div>
 
+                    {
+                        forgetPass.isforgetPass ?
+                            <p className="forgetPass-section" onClick={() => setForgetPass({ isForgetPassForm: true })}>Forget Password ?</p> : ""
+                    }
+
                     <span className="btn-container">
                         <button className="auth-btn inder-regular" onClick={handleLogin}>Login</button>
                         <button className="reset-btn" onClick={handleReset}>reset</button>
                     </span>
+
                     <p>Don’t have an account ? <Link to="/signup">Sign Up</Link> </p>
                 </form>
             </div>
+
+            {/* ForgetPassword form */}
+            {forgetPass.isForgetPassForm ? <ForgetPassword setForgetPass={setForgetPass} setIsLoading={setIsLoading} /> : ""}
 
             {isLoading ? <Loader /> : ""}
             <ToastContainer />
