@@ -20,7 +20,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault()
         setLoading(true)
-        const response = await fetch("http://localhost:3002/auth/register", {
+        const response = await fetch("https://photo-grapher-api.vercel.app/auth/register", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
