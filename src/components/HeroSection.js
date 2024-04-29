@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import Review from "./Review";
 
-const HeroSection = (props) => {
+const HeroSection = () => {
 
     const navigate = useNavigate()
+    const reviews = [
+        { author: 'John Doe', content: 'Great product! Highly recommended.' },
+        { author: 'Jane Smith', content: 'Excellent service. Will buy again.' },
 
+    ]
     return (
+
         <>
             <section className="hero-section">
                 <div className="istok-web-regular">
@@ -16,13 +22,16 @@ const HeroSection = (props) => {
                     <h6>"Capturing moments that speak louder than words.
                         Welcome to our world."</h6>
 
-                    <button className="explore-btn" onClick={() => props.userData ? navigate("/search") : navigate('/login')}>Explore</button>
+                    <button className="explore-btn" onClick={() => localStorage.get('userData') ? navigate("/search") : navigate('/login')}>Explore</button>
                 </div>
                 <div className="img-section">
                     <img src="./hero-section-img.jpg" />
                 </div>
 
             </section>
+            
+            < Review />
+
         </>
     )
 }

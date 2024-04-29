@@ -1,0 +1,18 @@
+.review .awssld__content {
+    height: 200px;
+    /* Adjust the height as needed */
+}
+
+.awssld__wrapper{
+    height: 250px;
+}
+
+ .awssld {
+    height: 100%;
+    /* Adjust the max-height as needed */
+}
+
+.awssld__bullets {
+    bottom: -20px;
+
+}

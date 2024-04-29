@@ -1,17 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { FaCity, FaUser } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 
-const SearchPhotographer = (props) => {
+const SearchPhotographer = () => {
 
     const navigate = useNavigate()
+    const [searchuser, setSearchUser] = useState({ name: "", city: "" })
 
     useEffect(() => {
         !localStorage.getItem('userData') && navigate('/login')
     }, [])
+
+    const onChage=(e)=>{
+
+    }
 
     return (
         <>

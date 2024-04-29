@@ -829,9 +829,10 @@
   color: black;
   border-radius: 5px;
 }
+
 /* forget password section */
 
-.forgetPass-section{
+.forgetPass-section {
   color: #b51b1b;
   font-size: 13px;
   position: absolute;
@@ -839,13 +840,41 @@
   right: 30px;
 }
 
-.forgetPass-section:hover{
+.forgetPass-section:hover {
   cursor: pointer;
 }
 
-/* .forgetPass-Closebtn{
-  position: absolute;
-  right: 30px;
-  font-size: 20px;
-  top: 15px;
-} */
+/* review section */
+
+.review-section {
+  width: 100vw;
+  height: 60vh;
+  text-align: center;
+}
+
+.review-section>h1 {
+  padding-block: 25px;
+}
+
+.review-container {
+  height: 70%;
+}
+
+.review {
+  background-color: white;
+  width: 45%;
+  height: 70%;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px #0000007d;
+  padding: 20px;
+}
+
+.review>h1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-block: 24px;
+  gap: 10px;
+
+}

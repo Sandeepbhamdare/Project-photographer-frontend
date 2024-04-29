@@ -9,7 +9,7 @@ import Profile from './pages/Profile';
 import SearchPhotographer from './pages/Search';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Contactphotographer from './pages/Contactphotographer';
-import { useEffect } from 'react';
+
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Dashbord />}>
-          <Route index element={<HeroSection userData={userData} />} />
+          <Route index element={<HeroSection  />} />
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
          <Route path='search' element={<SearchPhotographer userData={userData} />} />
