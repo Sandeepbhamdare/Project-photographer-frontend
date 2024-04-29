@@ -3,7 +3,7 @@ import { MdLogout, MdManageAccounts, MdOutlineMail, MdOutlinePhoneInTalk } from 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import SettingsSection from "../components/SettingsSection";
 import EditUserForm from "../components/EditUserForm";
 import ChangePassword from "../components/ChangePassword";
@@ -12,14 +12,15 @@ import DeleteForm from "../components/DeleteForm";
 
 const Profile = () => {
 
-    const localUserData = localStorage.getItem('userData')
-
     const [settings, setSettings] = useState(false)
     const [isEditPro, setIsEditPro] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [isChangePassword, setIsChangePassword] = useState(false)
     const [isdeleteForm, setIsdeleteForm] = useState(false)
     const [addImg, setAddImg] = useState("")
+
+    const localUserData = localStorage.getItem('userData')
+    const userData = localUserData ? JSON.parse(localUserData) : null;
 
     const navigate = useNavigate()
 
@@ -29,53 +30,10 @@ const Profile = () => {
         }
     }, [])
 
-    const userData = localUserData ? JSON.parse(localUserData) : null;
+    // const formData = new FormData();
+    // formData.append('image', addImg.imgUrl);
+    // formData.append('userId', userData && userData.userId);
 
-    const [editUser, setEditUser] = useState(userData ?
-        { name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone } :
-        { name: "", city: "", userId: "", phone: "" })
-
-    const formData = new FormData();
-    formData.append('image', addImg.imgUrl);
-    formData.append('userId', userData && userData.userId);
-
-    const onChange = (e) => {
-        setEditUser({ ...editUser, [e.target.name]: e.target.value })
-    }
-
-
-    const handleEdit = async (e) => {
-        e.preventDefault()
-        setIsLoading(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/user/updateProfile', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(editUser)
-        })
-        const data = await response.json()
-
-        if (data.status) {
-            const updateUser = {
-                userId: data.data.userId,
-                name: data.data.name,
-                email: data.data.email,
-                profileUser: data.data.profileUser,
-                userType: data.data.userType,
-                city: data.data.city,
-                phone: data.data.phone
-            }
-            setIsLoading(false)
-            toast.success(data.message)
-            localStorage.setItem('userData', JSON.stringify(updateUser))
-
-        } else {
-            setIsLoading(false)
-            toast.error(data.message)
-        }
-        setIsEditPro(false)
-    }
 
 
     const handleLogout = () => {
@@ -83,22 +41,22 @@ const Profile = () => {
         setTimeout(() => {
             localStorage.removeItem('userData')
             setIsLoading(false)
-            navigate('/login')
+            // navigate('/login')
         }, 3000)
     }
 
-    const handleSetProfileImg = async () => {
-        const response = await fetch('http://localhost:3002/user/updateProfileImage', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application-json"
-            },
-            body: formData
-        })
-        const data = await response.json()
-        console.log(data)
-        setAddImg({ isImg: false })
-    }
+    // const handleSetProfileImg = async () => {
+    //     const response = await fetch('http://localhost:3002/user/updateProfileImage', {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application-json"
+    //         },
+    //         body: formData
+    //     })
+    //     const data = await response.json()
+    //     console.log(data)
+    //     setAddImg({ isImg: false })
+    // }
 
     return (
         <>
@@ -129,7 +87,7 @@ const Profile = () => {
 
             {/* edit user Form*/}
             {isEditPro &&
-                <EditUserForm editUser={editUser} onChange={onChange} setIsEditPro={setIsEditPro} handleEdit={handleEdit} setAddImg={setAddImg} />
+                <EditUserForm setIsEditPro={setIsEditPro} setAddImg={setAddImg} setIsLoading={setIsLoading}/>
             }
 
             {/* change password form */}

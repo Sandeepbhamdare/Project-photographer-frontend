@@ -1,7 +1,55 @@
+import { useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
+import { toast } from "react-toastify";
 
-const EditUserForm = ({ editUser, onChange, setIsEditPro, handleEdit ,setAddImg}) => {
+const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading}) => {
+
+    const localUserData = localStorage.getItem('userData')
+    const userData = localUserData ? JSON.parse(localUserData) : null;
+
+
+    const [editUser, setEditUser] = useState(userData ?
+        { name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone } :
+        { name: "", city: "", userId: "", phone: "" })
+
+        const onChange = (e) => {
+            setEditUser({ ...editUser, [e.target.name]: e.target.value })
+        }
+
+    const handleEdit = async (e) => {
+        e.preventDefault()
+        setIsLoading(true)
+        const response = await fetch('https://photo-grapher-api.vercel.app/user/updateProfile', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editUser)
+        })
+        const data = await response.json()
+
+        if (data.status) {
+            const updateUser = {
+                userId: data.data.userId,
+                name: data.data.name,
+                email: data.data.email,
+                profileUser: data.data.profileUser,
+                userType: data.data.userType,
+                city: data.data.city,
+                phone: data.data.phone
+            }
+            setIsLoading(false)
+            toast.success(data.message)
+            localStorage.setItem('userData', JSON.stringify(updateUser))
+
+        } else {
+            setIsLoading(false)
+            toast.error(data.message)
+        }
+        setIsEditPro(false)
+    }
+
 
 
     return (
