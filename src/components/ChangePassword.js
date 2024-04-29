@@ -16,7 +16,7 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
     const handleChangePassword = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        console.log(changePassword)
+    
         const response = await fetch("https://photo-grapher-api.vercel.app/auth/changePassword", {
             method: "POST",
             headers: {
@@ -25,7 +25,6 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
             body: JSON.stringify(changePassword)
         })
         const data = await response.json()
-        console.log(data)
         if (data.status) {
             const updateUser = {
                 userId: data.data.userId,
