@@ -41,7 +41,7 @@ const Profile = () => {
         setTimeout(() => {
             localStorage.removeItem('userData')
             setIsLoading(false)
-            // navigate('/login')
+            navigate('/login')
         }, 3000)
     }
 
@@ -95,7 +95,7 @@ const Profile = () => {
                 <ChangePassword setIsChangePassword={setIsChangePassword} isChangePassword={isChangePassword} setIsLoading={setIsLoading} /> : ""}
 
             {/* delete account form  */}
-            {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} /> : ""}
+            {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} setIsLoading={setIsLoading} /> : ""}
 
             {/* loading */}
             {isLoading ? <Loader msg={"Logging Out.."} /> : ""}
