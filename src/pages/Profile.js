@@ -9,7 +9,6 @@ import EditUserForm from "../components/EditUserForm";
 import ChangePassword from "../components/ChangePassword";
 import Orders from "../components/Orders";
 import DeleteForm from "../components/DeleteForm";
-import { IoIosAddCircle } from "react-icons/io";
 
 const Profile = () => {
 
@@ -18,7 +17,7 @@ const Profile = () => {
     const [settings, setSettings] = useState(false)
     const [isEditPro, setIsEditPro] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [changePassword, setChangePassword] = useState(false)
+    const [isChangePassword, setIsChangePassword] = useState(false)
     const [isdeleteForm, setIsdeleteForm] = useState(false)
     const [addImg, setAddImg] = useState("")
 
@@ -38,11 +37,12 @@ const Profile = () => {
 
     const formData = new FormData();
     formData.append('image', addImg.imgUrl);
-    formData.append('userId', userData&&userData.userId);
+    formData.append('userId', userData && userData.userId);
 
     const onChange = (e) => {
         setEditUser({ ...editUser, [e.target.name]: e.target.value })
     }
+
 
     const handleEdit = async (e) => {
         e.preventDefault()
@@ -120,7 +120,7 @@ const Profile = () => {
                 {/* Setting section */}
                 {settings ?
                     <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings}
-                        setChangePassword={setChangePassword} setIsdeleteForm={setIsdeleteForm} /> : ""}
+                        setChangePassword={setIsChangePassword} setIsdeleteForm={setIsdeleteForm} /> : ""}
             </section>
 
             {/* Order section */}
@@ -133,8 +133,8 @@ const Profile = () => {
             }
 
             {/* change password form */}
-            {changePassword ?
-                <ChangePassword setChangePassword={setChangePassword} /> : ""}
+            {isChangePassword ?
+                <ChangePassword setIsChangePassword={setIsChangePassword} isChangePassword={isChangePassword} setIsLoading={setIsLoading} /> : ""}
 
             {/* delete account form  */}
             {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} /> : ""}
