@@ -60,7 +60,7 @@ const Profile = () => {
 
     return (
         <>
-            <section className="contact-section">
+            <section className="profile-secttion contact-section">
                 <img src="./demo-profile.jpg" />
                 <div>
                     <p className="photograper-name">{userData ? userData.name : "Loading..."}</p>

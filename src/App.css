@@ -527,17 +527,24 @@
 
 /* Contact Photographer Page + some Profile page CSS */
 
+
 .contact-section {
-  width: 100vw;
+  width: 80vw;
   height: 45vh;
   background-color: #FFC94A;
   display: grid;
   grid-template-columns: auto auto auto;
   justify-content: center;
   align-items: center;
-  gap: 13%;
+  gap: 3%;
   position: relative;
 }
+
+.profile-secttion {
+  width: 100vw;
+  gap: 5%;
+}
+
 
 .contact-section>img {
   width: 200px;
@@ -585,11 +592,12 @@
 }
 
 .orderbtn-section {
-  width: 100vw;
+  width: 80vw;
   height: 25vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 .orderbtn-section>button {
@@ -898,4 +906,19 @@
   width: 100px;
   padding: 10px 19px;
   align-self: center;
+}
+
+.contactphotographer-section {
+  width: 90vw;
+  height: 100vh;
+  flex-direction: column;
+  position: absolute;
+  top: 10px;
+  left: 55px;
+}
+
+.contactphotographer-section>div {
+  border: 1px solid black;
+  border-radius: 15px;
+  overflow: hidden;
 }
