@@ -10,7 +10,7 @@ import ChangePassword from "../components/ChangePassword";
 import Orders from "../components/Orders";
 import DeleteForm from "../components/DeleteForm";
 
-const Profile = () => {
+const Profile = ({ orderList, setOrderList }) => {
 
     const [settings, setSettings] = useState(false)
     const [isEditPro, setIsEditPro] = useState(false)
@@ -82,12 +82,12 @@ const Profile = () => {
             </section>
 
             {/* Order section */}
-            <Orders />
+            <Orders orderList={orderList} setOrderList={setOrderList} />
 
 
             {/* edit user Form*/}
             {isEditPro &&
-                <EditUserForm setIsEditPro={setIsEditPro} setAddImg={setAddImg} setIsLoading={setIsLoading}/>
+                <EditUserForm setIsEditPro={setIsEditPro} setAddImg={setAddImg} setIsLoading={setIsLoading} />
             }
 
             {/* change password form */}

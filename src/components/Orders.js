@@ -1,6 +1,27 @@
+import { useEffect } from "react";
 import { MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
 
-const Orders = () => {
+const Orders = ({ orderList, setOrderList }) => {
+
+    const userData = JSON.parse(localStorage.getItem('userData'))
+
+
+
+    useEffect(() => {
+        handleGetOrderList()
+    }, [])
+
+    const handleGetOrderList = async () => {
+        const response = await fetch('https://photo-grapher-api.vercel.app/order/allBooking', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ userId: userData.userId })
+        })
+        const data = await response.json()
+        console.log(data.data)
+    }
 
     return (
         <>

@@ -19,8 +19,7 @@ function App() {
   const [searchuser, setSearchUser] = useState({ userId: userData ? userData.userId : "", query: "", })
   const [photoGrapherList, setPhotoGrapherList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-
-
+  const [orderList, setOrderList] = useState([])
 
   const onChage = (e) => {
     setSearchUser({ ...searchuser, [e.target.name]: e.target.value })
@@ -39,7 +38,8 @@ function App() {
     })
     const data = await response.json()
     if (data.status) {
-      setPhotoGrapherList(data.data)
+      const filteredPhotoGrapherList = data.data.filter(photographer => photographer.userId !== userData.userId);
+      setPhotoGrapherList(filteredPhotoGrapherList);
     }
     setIsLoading(false)
   }
@@ -53,7 +53,7 @@ function App() {
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
           <Route path='search' element={<SearchPhotographer onChage={onChage} handleSearch={handleSearch} searchuser={searchuser} photoGrapherList={photoGrapherList} isLoading={isLoading} />} />
-          <Route path='profile' element={<Profile />} />
+          <Route path='profile' element={<Profile  orderList={orderList} setOrderList={setOrderList}/>} />
         </Route>
 
         {!userData ? <>
