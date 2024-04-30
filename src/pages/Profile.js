@@ -28,8 +28,9 @@ const Profile = ({ orderList, setOrderList }) => {
         if (!localUserData) {
             navigate('/login')
         }
-    }, [])
+    }, [orderList])
 
+     
     // const formData = new FormData();
     // formData.append('image', addImg.imgUrl);
     // formData.append('userId', userData && userData.userId);

@@ -5,23 +5,17 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
-const Contactphotographer = ({ setIsContact, photoGrapherDetail }) => {
+const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setOrderList }) => {
 
+    console.log(orderList)
     const userData = JSON.parse(localStorage.getItem('userData'))
     const navigate = useNavigate()
 
     const [orderPlaced, setOrderplaced] = useState(false)
 
-    const placeOrder = () => {
-        setOrderplaced(true)
-        handleOrderPlaced()
-        setTimeout(() => {
-            setOrderplaced(false)
-        }, 2000)
-    }
 
-    const handleOrderPlaced = async () => {
-        console.log(userData.userId, photoGrapherDetail.userId)
+    const handleOrderPlaced = async (uId) => {
+        setOrderplaced(true)
         const response = await fetch('https://photo-grapher-api.vercel.app/order/addBooking', {
             method: "POST",
             headers: {
@@ -36,9 +30,10 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail }) => {
         }
         else {
             toast.error(data.message)
+            console.log(data)
         }
+        setOrderplaced(false)
     }
-
 
 
     return (
@@ -67,7 +62,8 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail }) => {
             </section>
 
             <div className="orderbtn-section galdeano-regular">
-                <button className="galdeano-regular" onClick={() => placeOrder()}>Order</button>
+                <button className="galdeano-regular" onClick={() => handleOrderPlaced(photoGrapherDetail.userId)} >
+                    Order</button>
             </div>
             {orderPlaced ? <PopupMsg /> : ""}
             <ToastContainer />

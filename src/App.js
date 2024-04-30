@@ -8,7 +8,8 @@ import About from './pages/About';
 import Profile from './pages/Profile';
 import SearchPhotographer from './pages/Search';
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 
 function App() {
@@ -20,6 +21,12 @@ function App() {
   const [photoGrapherList, setPhotoGrapherList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [orderList, setOrderList] = useState([])
+
+
+  useEffect(() => {
+    handleGetOrderList()
+  }, [])
+
 
   const onChage = (e) => {
     setSearchUser({ ...searchuser, [e.target.name]: e.target.value })
@@ -40,9 +47,53 @@ function App() {
     if (data.status) {
       const filteredPhotoGrapherList = data.data.filter(photographer => photographer.userId !== userData.userId);
       setPhotoGrapherList(filteredPhotoGrapherList);
+
+      const filteredOrderPhotoGrapherList = filteredPhotoGrapherList.filter(photographer => !orderList.some(order => order.toUserId === photographer.userId));
+      setPhotoGrapherList(filteredOrderPhotoGrapherList)
     }
     setIsLoading(false)
   }
+
+  const handleGetOrderList = async () => {
+    const response = await fetch('https://photo-grapher-api.vercel.app/order/allBooking', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId: userData?.userId })
+    })
+    const data = await response.json()
+    if (data.status) {
+      setOrderList(data.data)
+    } else {
+      console.log(data)
+    }
+
+  }
+
+  const handleDeleteOrder = async (delId) => {
+    setIsLoading(true)
+    const response = await fetch('https://photo-grapher-api.vercel.app/order/deleteBooking', {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId: userData?.userId, bookingId: delId })
+    })
+    const data = await response.json()
+    if (data.status) {
+        console.log(data)
+        const filterList=orderList.filter(ob=>ob.bookingId!==delId)
+        setOrderList(filterList)
+        toast.success(data.message)
+    }
+    else {
+        toast.error(data.message)
+    }
+    setIsLoading(false)
+}
+
+
 
   return (
     <>
@@ -52,8 +103,8 @@ function App() {
           <Route index element={<HeroSection />} />
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
-          <Route path='search' element={<SearchPhotographer onChage={onChage} handleSearch={handleSearch} searchuser={searchuser} photoGrapherList={photoGrapherList} isLoading={isLoading} />} />
-          <Route path='profile' element={<Profile  orderList={orderList} setOrderList={setOrderList}/>} />
+          <Route path='search' element={<SearchPhotographer onChage={onChage} handleSearch={handleSearch} searchuser={searchuser} photoGrapherList={photoGrapherList} isLoading={isLoading}  orderList={orderList} setOrderList={setOrderList}/>} />
+          <Route path='profile' element={<Profile orderList={orderList} setOrderList={setOrderList} handleDeleteOrder={handleDeleteOrder}isLoading={isLoading} />} />
         </Route>
 
         {!userData ? <>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 
-const SearchPhotographer = ({ handleSearch, onChage, searchuser, photoGrapherList, isLoading }) => {
+const SearchPhotographer = ({ handleSearch, onChage, searchuser, photoGrapherList, isLoading, orderList, setOrderList }) => {
 
     const navigate = useNavigate()
 
@@ -29,7 +29,7 @@ const SearchPhotographer = ({ handleSearch, onChage, searchuser, photoGrapherLis
 
             <section className="card-container">
                 {photoGrapherList.map((ob, index) => (
-                    <Card key={index} name={ob.name} city={ob.city} userId={ob.userId} profileUrl={ob.profileUrl} email={ob.email} phone={ob.phone}/>
+                    <Card key={index} name={ob.name} city={ob.city} userId={ob.userId} profileUrl={ob.profileUrl} email={ob.email} phone={ob.phone} orderList={orderList} setOrderList={setOrderList}  />
                 ))}
             </section>
 
