@@ -17,7 +17,7 @@ const Orders = ({ orderList, setOrderList }) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ userId: userData.userId })
+            body: JSON.stringify({ userId: userData?.userId })
         })
         const data = await response.json()
         console.log(data.data)

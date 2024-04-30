@@ -3,16 +3,20 @@
     /* Adjust the height as needed */
 }
 
-.awssld__wrapper{
+.awssld__wrapper {
     height: 250px;
 }
 
- .awssld {
+.awssld {
     height: 100%;
     /* Adjust the max-height as needed */
 }
 
 .awssld__bullets {
     bottom: -20px;
+}
 
+.awssld__bullets button {
+    width: 6px;
+    height: 6px;
 }

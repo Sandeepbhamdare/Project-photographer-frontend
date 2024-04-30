@@ -875,6 +875,7 @@
   border-radius: 15px;
   box-shadow: 5px 5px 5px #0000007d;
   padding: 20px;
+  position: relative;
 }
 
 .review>h1 {
@@ -884,28 +885,6 @@
   justify-content: center;
   margin-block: 24px;
   gap: 10px;
-}
-
-.review-form {
-  display: flex;
-  flex-direction: column;
-  padding: 30px 65px;
-  gap: 30px;
-  height: 35vh;
-  margin-block: 15px;
-  background-color: #e8e8e8;
-}
-
-.review-form>textarea {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid;
-}
-
-.review-form>button {
-  width: 100px;
-  padding: 10px 19px;
-  align-self: center;
 }
 
 .contactphotographer-section {
@@ -921,4 +900,39 @@
   border: 1px solid black;
   border-radius: 15px;
   overflow: hidden;
+}
+
+.star {
+  color: yellow;
+  font-size: 20px;
+}
+
+.rating {
+  background-color: #c4c4c4;
+  margin: 10px 135px;
+  border-radius: 10px;
+}
+
+.review-delete-btn {
+  color: red;
+  position: absolute;
+  width: 35px;
+  padding: 6px;
+  height: 35px;
+  font-size: 20px;
+  border-radius: 20px;
+  border: 1px solid red;
+  background-color: #ffffff00;
+  right: 20px;
+  top: 10px;
+  display: none;
+}
+
+.review:hover .review-delete-btn{
+  display: block;
+}
+
+.review-delete-btn:hover{
+  background-color: red;
+  color: white;
 }

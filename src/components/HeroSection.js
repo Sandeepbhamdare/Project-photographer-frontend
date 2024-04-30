@@ -1,15 +1,62 @@
 import { useNavigate } from "react-router-dom";
-import Review from "./Review";
+import { useEffect, useState } from "react";
+import 'react-awesome-slider/dist/styles.css';
+import "../Slider.css";
+import AwesomeSlider from 'react-awesome-slider';
+import { IoMdStar, IoMdTrash } from "react-icons/io";
 
 const HeroSection = () => {
 
     const navigate = useNavigate()
-    const reviews = [
-        { author: 'John Doe', content: 'Great product! Highly recommended.' },
-        { author: 'Jane Smith', content: 'Excellent service. Will buy again.' },
 
-    ]
-    const userData = localStorage.getItem('userData')
+    const userData = JSON.parse(localStorage.getItem('userData'))
+    const [reviewList, setReviewList] = useState([]);
+
+    useEffect(() => {
+        getAllReview()
+    }, [])
+
+    const getAllReview = async () => {
+        const response = await fetch("https://photo-grapher-api.vercel.app/user/getAllReview", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId: userData?.userId })
+        })
+        const data = await response.json()
+        if (data.status) {
+            setReviewList(data.data)
+        } else {
+            console.log(data.message)
+        }
+    }
+
+    // Function to generate star icons based on rating
+    const renderStars = (rating) => {
+        const stars = [];
+        for (let i = 0; i < rating; i++) {
+            stars.push(<IoMdStar key={i} className="star" />);
+        }
+        return stars;
+    };
+
+
+    // const handleDeleteReview = async (rId) => {
+    //     const response = await fetch("https://photo-grapher-api.vercel.app/user/deleteReview", {
+    //         method: "POST",
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ userId: userData?.userId, reviewId: rId })
+    //     })
+    //     const data = await response.json()
+    //     if (data.status) {
+    //         setReviewList(data.data)
+    //     } else {
+    //         console.log(data.message)
+    //     }
+    // }
 
     return (
 
@@ -32,8 +79,25 @@ const HeroSection = () => {
 
             </section>
 
-            < Review />
+            {userData.userType === 2 ?
+                <section className="review-section">
+                    <h1>Review</h1>
+                    <div className="review-container container-center">
+                        <AwesomeSlider>
+                            {reviewList?.map((ob, index) => (
+                                <div className="review" key={index}>
 
+                                    <button className="review-delete-btn" ><IoMdTrash /></button>
+
+                                    <h1><img src="default-profile.png" width={"50px"} /> {ob.userData[0].name}</h1>
+                                    <p className="rating">{renderStars(ob.rating)}</p>
+                                    <p>“{ob.review}”</p>
+                                </div>
+                            ))}
+                        </AwesomeSlider>
+                    </div>
+                </section> : ""
+            }
         </>
     )
 }
