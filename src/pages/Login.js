@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Loader from "../components/Loader";
 import "react-toastify/dist/ReactToastify.css";
 import ForgetPassword from "../components/ForgetPass";
+import BaseUrl from "../constants";
 
 const Login = () => {
 
@@ -22,7 +23,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/auth/login', {
+        const response = await fetch(BaseUrl+'/auth/login', {
             method: "POST",
             headers: {
                 'Content-Type': "application/json"
@@ -42,6 +43,9 @@ const Login = () => {
                 phone: data.data.phone
             }
             localStorage.setItem('userData', JSON.stringify(userData))
+            userLogin.email='';
+            userLogin.password='';
+        
             navigate("/")
         } else {
             toast.error(data.message)

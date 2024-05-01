@@ -2,8 +2,9 @@ import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import BaseUrl from "../constants";
 
-const DeleteForm = ({ setIsdeleteForm, setIsLoading }) => {
+const DeleteForm = ({ setIsdeleteForm, setIsLoading ,setIsLoadingText }) => {
 
     const navigate = useNavigate()
     const [delUser, setDelUser] = useState({ email: "", password: "" })
@@ -14,8 +15,9 @@ const DeleteForm = ({ setIsdeleteForm, setIsLoading }) => {
 
     const handleDeleteUser = async (e) => {
         e.preventDefault()
+        setIsLoadingText('Deleteting user ..')
         setIsLoading(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/auth/deleteAccount', {
+        const response = await fetch(BaseUrl+'/auth/deleteAccount', {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'

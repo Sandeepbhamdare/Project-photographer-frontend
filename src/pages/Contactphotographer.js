@@ -4,6 +4,7 @@ import { IoMdArrowBack } from "react-icons/io";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import BaseUrl from "../constants";
 
 const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setOrderList }) => {
 
@@ -16,7 +17,7 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
 
     const handleOrderPlaced = async (uId) => {
         setOrderplaced(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/order/addBooking', {
+        const response = await fetch(BaseUrl+'/order/addBooking', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

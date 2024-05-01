@@ -4,6 +4,7 @@ import 'react-awesome-slider/dist/styles.css';
 import "../Slider.css";
 import AwesomeSlider from 'react-awesome-slider';
 import { IoMdStar, IoMdTrash } from "react-icons/io";
+import BaseUrl from "../constants";
 
 const HeroSection = () => {
 
@@ -14,13 +15,11 @@ const HeroSection = () => {
     const [reviewList, setReviewList] = useState([]);
 
     useEffect(() => {
-        if (!userData===null) {
-            getAllReview()
-        }
+        if(userData)  getAllReview()
     }, [])
 
     const getAllReview = async () => {
-        const response = await fetch("https://photo-grapher-api.vercel.app/user/getAllReview", {
+        const response = await fetch(BaseUrl+"/user/getAllReview", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +45,7 @@ const HeroSection = () => {
 
 
     // const handleDeleteReview = async (rId) => {
-    //     const response = await fetch("https://photo-grapher-api.vercel.app/user/deleteReview", {
+        // const response = await fetch(BaseUrl+"/user/deleteReview", {
     //         method: "POST",
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -82,7 +81,7 @@ const HeroSection = () => {
 
             </section>
 
-            {userData?.userType === 2 ?
+            {(userData&&userData.userType === 2) ?
                 <section className="review-section">
                     <h1>Review</h1>
                     <div className="review-container container-center">
@@ -90,9 +89,9 @@ const HeroSection = () => {
                             {reviewList?.map((ob, index) => (
                                 <div className="review" key={index}>
 
-                                    <button className="review-delete-btn" ><IoMdTrash /></button>
+                                    {/* <button className="review-delete-btn" ><IoMdTrash /></button> */}
 
-                                    <h1><img src="default-profile.png" width={"50px"} /> {ob.userData[0].name}</h1>
+                                    <h1><div className="order-detail1"><img src={ob.userData[0].profileUrl??"default-profile.png"}/></div> {ob.userData[0].name}</h1>
                                     <p className="rating">{renderStars(ob.rating)}</p>
                                     <p>“{ob.review}”</p>
                                 </div>

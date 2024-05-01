@@ -1,32 +1,34 @@
 import { useState } from "react";
+import { IoIosAddCircle } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BaseUrl from "../constants";
 
-const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText }) => {
+const ReviewUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
 
-    const [changePassword, setChangePassword] = useState({ userId: userData && userData.userId, password: "", newPassword: "" })
 
-    const onChangePassword = (e) => {
-        setChangePassword({ ...changePassword, [e.target.name]: e.target.value })
-    };
+    const [reviewText, setEditUser] = useState("")
 
-    const handleChangePassword = async (e) => {
+        const onChange = (e) => {
+            setEditUser(e.target.value)
+        }
+
+    const handleEdit = async (e) => {
         e.preventDefault()
-        setIsLoadingText('Changing password..')
         setIsLoading(true)
-
-        const response = await fetch(BaseUrl+"/auth/changePassword", {
+        setIsLoadingText('Updaetig profile..')
+        const response = await fetch(BaseUrl+'/user/reviewUser', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(changePassword)
+            body: JSON.stringify({userId:userData?.userId,toUserId:1008,review:review})
         })
         const data = await response.json()
+
         if (data.status) {
             const updateUser = {
                 userId: data.data.userId,
@@ -45,26 +47,30 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText })
             setIsLoading(false)
             toast.error(data.message)
         }
-        setIsChangePassword(false)
+        setIsEditPro(false)
     }
+
+
 
     return (
         <div className="edit-profile container-center">
             <form>
                 <div>
-                    <h3>Chage Password</h3>
-                    <IoCloseSharp className="close-icon" onClick={() => setChangePassword(false)} />
+                    <h3>Edit Profile</h3>
+                    <IoCloseSharp className="close-icon" onClick={() => setIsEditPro(false)} />
                 </div>
+                {/* <div className="Img-Inpute">
+                    <label htmlFor="imgs"><IoIosAddCircle  /></label>
+                    <input type="file" id="imgs" onChange={(e) => setAddImg(e.target.files[0])} />
+                    <img src="./demo-profile.jpg" width={"100px"} />
+                </div> */}
                 <div>
-                    <p>Current Password</p>  <input type="text" name="password" value={changePassword.password} onChange={onChangePassword} />
+                    <p>Name</p>  <input type="text" name="review" onChange={onChange} value={reviewText} />
                 </div>
-                <div>
-                    <p>New Password</p> <input type="text" name="newPassword" value={changePassword.newPassword} onChange={onChangePassword} />
-                </div>
-                <button className="edit-save" onClick={handleChangePassword}>Save</button>
+                <button className="edit-save" onClick={handleEdit}>Save</button>
             </form>
         </div>
     )
 };
 
-export default ChangePassword;
+export default EditUserForm;

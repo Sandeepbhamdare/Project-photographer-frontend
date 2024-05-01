@@ -10,6 +10,7 @@ import SearchPhotographer from './pages/Search';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import BaseUrl from './constants';
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
     e.preventDefault()
     setIsLoading(true)
 
-    const response = await fetch("https://photo-grapher-api.vercel.app/user/getUsers", {
+    const response = await fetch(BaseUrl+"/user/getUsers", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -50,14 +51,14 @@ function App() {
       const filteredPhotoGrapherList = data.data.filter(photographer => photographer.userId !== userData.userId);
       setPhotoGrapherList(filteredPhotoGrapherList);
 
-      const filteredOrderPhotoGrapherList = filteredPhotoGrapherList.filter(photographer => !orderList.some(order => order.toUserId === photographer.userId));
-      setPhotoGrapherList(filteredOrderPhotoGrapherList)
+      // const filteredOrderPhotoGrapherList = filteredPhotoGrapherList.filter(photographer => !orderList.some(order => order.toUserId === photographer.userId));
+      // setPhotoGrapherList(filteredOrderPhotoGrapherList)
     }
     setIsLoading(false)
   }
 
   const handleGetOrderList = async () => {
-    const response = await fetch('https://photo-grapher-api.vercel.app/order/allBooking', {
+    const response = await fetch(BaseUrl+'/order/allBooking', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -72,6 +73,27 @@ function App() {
     }
   }
 
+  const handleDeleteOrder = async (delId) => {
+    setIsLoading(true)
+    const response = await fetch(BaseUrl+'/order/deleteBooking', {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId: userData?.userId, bookingId: delId })
+    })
+    const data = await response.json()
+    if (data.status) {
+        console.log(data)
+        const filterList=orderList.filter(ob=>ob.bookingId!==delId)
+        setOrderList(filterList)
+        toast.success(data.message)
+    }
+    else {
+        toast.error(data.message)
+    }
+    setIsLoading(false)
+}
 
 
 

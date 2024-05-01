@@ -8,6 +8,8 @@ const Orders = ({ orderList, setOrderList, isLoading,setIsLoading }) => {
 
     const userData=JSON.parse(localStorage.getItem('userData'))
 
+    console.log(orderList)
+
   useEffect(()=>{
     console.log("orderList changed:", orderList);
 }, [orderList]);
@@ -44,7 +46,7 @@ const handleDeleteOrder = async (delId) => {
                     orderList?.map((ob, index) => (
                         <div className="order" key={index} >
                             <div className="order-detail1">
-                                <img src="./default-profile.png" />
+                                <img src={ob.userData[0].profileUrl??"./default-profile.png"}/>
                                 <p>{ob.userData[0].name}</p>
                             </div>
                             <div className="order-detail2">
@@ -56,7 +58,7 @@ const handleDeleteOrder = async (delId) => {
                                 {new Date(ob.createdAt).toLocaleTimeString()}
                             </p>
                             <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob.bookingId)}><IoMdTrash /></button>
-                            <button className="review-btn" ><MdRateReview style={{fontSize:"25px"}} />review</button>
+                            <button  onClick={() => handleDeleteOrder(ob.bookingId)}><h2>Add Review</h2></button>
                         </div>
                     ))}
                     <p style={{fontSize:"10px"}}>please reload the page to update to order list</p>
