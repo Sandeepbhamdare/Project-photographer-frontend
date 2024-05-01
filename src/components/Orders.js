@@ -31,6 +31,7 @@ const Orders = ({ orderList, setOrderList, handleDeleteOrder, isLoading }) => {
                                 {new Date(ob.createdAt).toLocaleTimeString()}
                             </p>
                             <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob.bookingId)}><IoMdTrash /></button>
+                            <button  onClick={() => handleDeleteOrder(ob.bookingId)}><h2>Add Review</h2></button>
                         </div>
                     ))}
             </div >
