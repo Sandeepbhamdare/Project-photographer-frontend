@@ -1,16 +1,41 @@
-import { MdOutlineMail, MdOutlinePhoneInTalk } from "react-icons/md";
+import { MdOutlineMail, MdOutlinePhoneInTalk, MdRateReview } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "./Loader";
 import { useEffect } from "react";
 
-const Orders = ({ orderList, setOrderList, handleDeleteOrder, isLoading }) => {
+const Orders = ({ orderList, setOrderList, isLoading,setIsLoading }) => {
+
+    const userData=JSON.parse(localStorage.getItem('userData'))
 
   useEffect(()=>{
     console.log("orderList changed:", orderList);
 }, [orderList]);
 
-    console.log(orderList)
+const handleDeleteOrder = async (delId) => {
+    setIsLoading(true)
+    const response = await fetch('https://photo-grapher-api.vercel.app/order/deleteBooking', {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userId: userData?.userId, bookingId: delId })
+    })
+    const data = await response.json()
+    if (data.status) {
+        console.log(data)
+        const filterList=orderList.filter(ob=>ob.bookingId!==delId)
+        setOrderList(filterList)
+        toast.success(data.message)
+    }
+    else {
+        toast.error(data.message)
+    }
+    setIsLoading(false)
+}
+
+
+
     return (
         <>
             <p className="order-head">your orders</p>
@@ -31,8 +56,10 @@ const Orders = ({ orderList, setOrderList, handleDeleteOrder, isLoading }) => {
                                 {new Date(ob.createdAt).toLocaleTimeString()}
                             </p>
                             <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob.bookingId)}><IoMdTrash /></button>
+                            <button className="review-btn" ><MdRateReview style={{fontSize:"25px"}} />review</button>
                         </div>
                     ))}
+                    <p style={{fontSize:"10px"}}>please reload the page to update to order list</p>
             </div >
 
             {isLoading ? <Loader msg={"Deleting Order"} /> : ""}

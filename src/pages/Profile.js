@@ -30,7 +30,7 @@ const Profile = ({ orderList, setOrderList }) => {
         }
     }, [orderList])
 
-     
+
     // const formData = new FormData();
     // formData.append('image', addImg.imgUrl);
     // formData.append('userId', userData && userData.userId);
@@ -83,7 +83,7 @@ const Profile = ({ orderList, setOrderList }) => {
             </section>
 
             {/* Order section */}
-            <Orders orderList={orderList} setOrderList={setOrderList} />
+            <Orders orderList={orderList} setOrderList={setOrderList} isLoading={isLoading} setIsLoading={setIsLoading} />
 
 
             {/* edit user Form*/}
@@ -99,7 +99,7 @@ const Profile = ({ orderList, setOrderList }) => {
             {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} setIsLoading={setIsLoading} /> : ""}
 
             {/* loading */}
-            {isLoading ? <Loader msg={"Logging Out.."} /> : ""}
+            {isLoading ? <Loader msg={"Loading..."} /> : ""}
             <ToastContainer />
         </>
     )

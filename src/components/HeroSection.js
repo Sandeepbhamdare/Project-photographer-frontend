@@ -9,11 +9,14 @@ const HeroSection = () => {
 
     const navigate = useNavigate()
 
-    const userData = JSON.parse(localStorage.getItem('userData'))
+    const localUserData = localStorage.getItem('userData')
+    const userData = localUserData ? JSON.parse(localUserData) : null;
     const [reviewList, setReviewList] = useState([]);
 
     useEffect(() => {
-        getAllReview()
+        if (!userData===null) {
+            getAllReview()
+        }
     }, [])
 
     const getAllReview = async () => {
@@ -79,7 +82,7 @@ const HeroSection = () => {
 
             </section>
 
-            {userData.userType === 2 ?
+            {userData?.userType === 2 ?
                 <section className="review-section">
                     <h1>Review</h1>
                     <div className="review-container container-center">

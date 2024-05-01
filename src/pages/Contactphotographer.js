@@ -26,7 +26,10 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
         const data = await response.json()
         if (data.status) {
             toast.success(data.message)
-            navigate('/profile')
+            setTimeout(() => {
+
+                navigate('/profile')
+            }, 3000)
         }
         else {
             toast.error(data.message)

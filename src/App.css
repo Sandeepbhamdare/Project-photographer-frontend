@@ -959,7 +959,31 @@
 .order:hover .order-delelte-btn {
   display: block;
 }
-.order-delelte-btn{
+
+.order-delelte-btn {
   background-color: red;
   color: white;
+}
+
+.review-btn {
+  color: green;
+  width: 90px;
+  height: 35px;
+  font-size: 13px;
+  background-color: #ffffff00;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 10px;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  display: none;
+}
+
+.review:hover {
+  background-color: #0c9d0c;
+  color: white;
+}
+.order:hover .review-btn{
+  display: block;
 }
