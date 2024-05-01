@@ -8,10 +8,10 @@ const Footer = () => {
     return (
         <>
             <section className="footer-section istok-web-regular">
-                <div>
+           {userData?<div></div>:     <div>
                     <h1>So what are you waiting for?</h1>
                     <button className="footer-btn" onClick={() => !userData?navigate('/signup'):""}>Sign Up</button>
-                </div>
+                </div>}
                 <div className="footer-main-section">
                     <div>
                         <img src="./logo.png" />

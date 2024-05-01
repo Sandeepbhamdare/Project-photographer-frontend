@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
+import BaseUrl from "../constants";
 
-const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
+const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText }) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
@@ -15,9 +16,10 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading }) => {
 
     const handleChangePassword = async (e) => {
         e.preventDefault()
+        setIsLoadingText('Changing password..')
         setIsLoading(true)
 
-        const response = await fetch("https://photo-grapher-api.vercel.app/auth/changePassword", {
+        const response = await fetch(BaseUrl+"/auth/changePassword", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

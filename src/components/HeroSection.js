@@ -4,6 +4,7 @@ import 'react-awesome-slider/dist/styles.css';
 import "../Slider.css";
 import AwesomeSlider from 'react-awesome-slider';
 import { IoMdStar, IoMdTrash } from "react-icons/io";
+import BaseUrl from "../constants";
 
 const HeroSection = () => {
 
@@ -13,11 +14,11 @@ const HeroSection = () => {
     const [reviewList, setReviewList] = useState([]);
 
     useEffect(() => {
-        getAllReview()
+        if(userData)  getAllReview()
     }, [])
 
     const getAllReview = async () => {
-        const response = await fetch("https://photo-grapher-api.vercel.app/user/getAllReview", {
+        const response = await fetch(BaseUrl+"/user/getAllReview", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -43,7 +44,7 @@ const HeroSection = () => {
 
 
     // const handleDeleteReview = async (rId) => {
-    //     const response = await fetch("https://photo-grapher-api.vercel.app/user/deleteReview", {
+        // const response = await fetch(BaseUrl+"/user/deleteReview", {
     //         method: "POST",
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -79,7 +80,7 @@ const HeroSection = () => {
 
             </section>
 
-            {userData.userType === 2 ?
+            {(userData&&userData.userType === 2) ?
                 <section className="review-section">
                     <h1>Review</h1>
                     <div className="review-container container-center">

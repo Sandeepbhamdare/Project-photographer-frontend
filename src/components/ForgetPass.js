@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
+import BaseUrl from "../constants";
 
 const ForgetPassword = ({ setForgetPass, setIsLoading }) => {
 
@@ -13,7 +14,7 @@ const ForgetPassword = ({ setForgetPass, setIsLoading }) => {
     const handleForgetPassword = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/auth/forgetPassword', {
+        const response = await fetch(BaseUrl+'/auth/forgetPassword', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

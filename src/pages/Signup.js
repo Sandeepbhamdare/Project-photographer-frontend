@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BaseUrl from "../constants";
 
 const Signup = () => {
 
@@ -20,7 +21,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault()
         setLoading(true)
-        const response = await fetch("https://photo-grapher-api.vercel.app/auth/register", {
+        const response = await fetch(BaseUrl+"/auth/register", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

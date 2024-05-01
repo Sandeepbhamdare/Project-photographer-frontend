@@ -2,8 +2,9 @@ import { useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
+import BaseUrl from "../constants";
 
-const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading}) => {
+const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
@@ -20,7 +21,8 @@ const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading}) => {
     const handleEdit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/user/updateProfile', {
+        setIsLoadingText('Updaetig profile..')
+        const response = await fetch(BaseUrl+'/user/updateProfile', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

@@ -15,6 +15,7 @@ const Profile = ({ orderList, setOrderList }) => {
     const [settings, setSettings] = useState(false)
     const [isEditPro, setIsEditPro] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [isLoadingText, setIsLoadingText] = useState("")
     const [isChangePassword, setIsChangePassword] = useState(false)
     const [isdeleteForm, setIsdeleteForm] = useState(false)
     const [addImg, setAddImg] = useState("")
@@ -88,18 +89,18 @@ const Profile = ({ orderList, setOrderList }) => {
 
             {/* edit user Form*/}
             {isEditPro &&
-                <EditUserForm setIsEditPro={setIsEditPro} setAddImg={setAddImg} setIsLoading={setIsLoading} />
+                <EditUserForm setIsEditPro={setIsEditPro} setAddImg={setAddImg} setIsLoading={setIsLoading} setIsLoadingText={setIsLoadingText} />
             }
 
             {/* change password form */}
             {isChangePassword ?
-                <ChangePassword setIsChangePassword={setIsChangePassword} isChangePassword={isChangePassword} setIsLoading={setIsLoading} /> : ""}
+                <ChangePassword setIsChangePassword={setIsChangePassword} isChangePassword={isChangePassword} setIsLoading={setIsLoading} setIsLoadingText={setIsLoadingText}/> : ""}
 
             {/* delete account form  */}
-            {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} setIsLoading={setIsLoading} /> : ""}
+            {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} setIsLoading={setIsLoading} setIsLoadingText={setIsLoadingText} /> : ""}
 
             {/* loading */}
-            {isLoading ? <Loader msg={"Logging Out.."} /> : ""}
+            {isLoading ? <Loader msg={isLoadingText??"Logging Out.."} /> : ""}
             <ToastContainer />
         </>
     )

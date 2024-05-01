@@ -19,7 +19,7 @@ const Orders = ({ orderList, setOrderList, handleDeleteOrder, isLoading }) => {
                     orderList?.map((ob, index) => (
                         <div className="order" key={index} >
                             <div className="order-detail1">
-                                <img src="./default-profile.png" />
+                                <img src={ob.userData[0].profileUrl??"./default-profile.png"}/>
                                 <p>{ob.userData[0].name}</p>
                             </div>
                             <div className="order-detail2">
