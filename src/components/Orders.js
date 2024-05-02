@@ -14,7 +14,7 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
     console.log(orderList)
 
     useEffect(() => {
-        console.log("orderList changed:", orderList);
+
     }, [orderList]);
 
     const handleDeleteOrder = async (delId) => {
@@ -28,13 +28,13 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
         })
         const data = await response.json()
         if (data.status) {
-            console.log(data)
             const filterList = orderList.filter(ob => ob.bookingId !== delId)
             setOrderList(filterList)
             toast.success(data.message)
         }
         else {
             toast.error(data.message)
+            console.log(data)
         }
         setIsLoading(false)
     }
@@ -69,7 +69,6 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
 
             {/* loading stection */}
             {isLoading ? <Loader msg={"Deleting Order"} /> : ""}
-            <ToastContainer />
 
             {/* user Review Form */}
             {isReviewAdd ? <ReviewUserForm setIsReviewAdd={setIsReviewAdd} setIsLoading={setIsLoading} reviewText={reviewText} setReviewText={setReviewText} /> : ""}

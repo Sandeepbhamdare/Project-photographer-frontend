@@ -11,7 +11,6 @@ const ReviewUserForm = ({ setIsReviewAdd, setIsLoading, reviewText, setReviewTex
 
     const handleAddReview = async (e) => {
         e.preventDefault()
-        console.log(reviewText)
         setIsLoading(true)
 
         const response = await fetch(BaseUrl + "/user/reviewUser", {
@@ -22,10 +21,10 @@ const ReviewUserForm = ({ setIsReviewAdd, setIsLoading, reviewText, setReviewTex
             body: JSON.stringify({ userId: userData.userId, toUserId: reviewText?.toUserId, review: reviewText?.review, rating: reviewText?.rating })
         })
         const data = await response.json()
-        console.log(data)
         if (data.status) {
             toast.success(data.message)
         } else {
+            console.log(data)
             toast.error(data.message)
         }
         setIsReviewAdd(false)
