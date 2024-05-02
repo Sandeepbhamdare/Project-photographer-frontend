@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Loader from "./Loader";
 import { useEffect, useState } from "react";
 import ReviewUserForm from "./AddReview";
+import BaseUrl from "../constants";
 
 const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
 
@@ -19,7 +20,7 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
 
     const handleDeleteOrder = async (delId) => {
         setIsLoading(true)
-        const response = await fetch('https://photo-grapher-api.vercel.app/order/deleteBooking', {
+        const response = await fetch(BaseUrl +"/order/deleteBooking", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -45,25 +46,28 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
         <>
             <p className="order-head">your orders</p>
             <div className="order-container">
-                {
-                    orderList?.map((ob, index) => (
-                        <div className="order" key={index} >
-                            <div className="order-detail1">
-                                <img src={ob.userData[0].profileUrl ?? "./default-profile.png"} />
-                                <p>{ob.userData[0].name}</p>
-                            </div>
-                            <div className="order-detail2">
-                                <p><MdOutlineMail className="order-icons" /> <span>{ob.userData[0].email}</span></p>
-                                <p><MdOutlinePhoneInTalk className="order-icons" /> <span> {ob.userData[0].phone}</span></p>
-                            </div>
-                            <p className="time-date">
-                                {new Date(ob.createdAt).toLocaleDateString()}{" "}
-                                {new Date(ob.createdAt).toLocaleTimeString()}
-                            </p>
-                            {userData.userType === 1 ? <> <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob?.bookingId)}><IoMdTrash /></button>
-                                <button className="review-btn " onClick={() => { setIsReviewAdd(true); setReviewText({ toUserId: ob?.toUserId }) }}>Add Review</button></> : ""}
+                {orderList?.length > 0 ? orderList.map((ob, index) => (
+                    <div className="order" key={index}>
+                        <div className="order-detail1">
+                            <img src={ob.userData[0]?.profileUrl ?? "./default-profile.png"} />
+                            <p>{ob.userData[0]?.name}</p>
                         </div>
-                    ))}
+                        <div className="order-detail2">
+                            <p><MdOutlineMail className="order-icons" /> <span>{ob.userData[0]?.email}</span></p>
+                            <p><MdOutlinePhoneInTalk className="order-icons" /> <span> {ob.userData[0]?.phone}</span></p>
+                        </div>
+                        <p className="time-date">
+                            {new Date(ob.createdAt).toLocaleDateString()}{" "}
+                            {new Date(ob.createdAt).toLocaleTimeString()}
+                        </p>
+                        {userData.userType === 1 ? (
+                            <>
+                                <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob?.bookingId)}><IoMdTrash /></button>
+                                <button className="review-btn " onClick={() => { setIsReviewAdd(true); setReviewText({ toUserId: ob?.toUserId }) }}>Add Review</button>
+                            </>
+                        ) : null}
+                    </div>
+                )) : <p>No orders found.</p>}
                 <p style={{ fontSize: "10px" }}>please reload the page to update to order list</p>
             </div >
 

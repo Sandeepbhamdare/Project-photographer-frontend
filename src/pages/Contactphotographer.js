@@ -29,14 +29,15 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
             toast.success(data.message)
             setOrderList(data.data)
             setTimeout(() => {
+                setOrderplaced(false)
                 navigate('/profile')
             }, 3000)
         }
         else {
+            setOrderplaced(false)
             toast.error(data.message)
             console.log(data)
         }
-        setOrderplaced(false)
     }
 
 
