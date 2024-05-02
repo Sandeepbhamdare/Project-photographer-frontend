@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
@@ -13,6 +13,14 @@ const Signup = () => {
     const [loading, setLoading] = useState(false);
 
     const { name, email, password, city, phone, userType } = newUser;
+
+    const localUserData = localStorage.getItem('userData');
+
+    useEffect(() => {
+        if (localUserData) {
+            navigate('/')
+        }
+    })
 
     const onChange = (e) => {
         setNewUser({ ...newUser, [e.target.name]: e.target.value })

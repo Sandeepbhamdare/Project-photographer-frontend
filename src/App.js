@@ -52,9 +52,6 @@ function App() {
     if (data.status) {
       const filteredPhotoGrapherList = data.data.filter(photographer => photographer.userId !== userData.userId);
       setPhotoGrapherList(filteredPhotoGrapherList);
-
-      // const filteredOrderPhotoGrapherList = filteredPhotoGrapherList.filter(photographer => !orderList.some(order => order.toUserId === photographer.userId));
-      // setPhotoGrapherList(filteredOrderPhotoGrapherList)
     }
     setIsLoading(false)
   }
