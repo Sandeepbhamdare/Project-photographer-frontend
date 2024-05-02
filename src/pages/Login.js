@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -14,7 +14,14 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [forgetPass, setForgetPass] = useState({ isforgetPass: false, isForgetPassForm: false })
 
+    const localUserData = localStorage.getItem('userData')
     const navigate = useNavigate()
+    
+    useEffect(() => {
+        if (localUserData) {
+            navigate('/')
+        }
+    })
 
     const onChange = (e) => {
         setUserLogin({ ...userLogin, [e.target.name]: e.target.value });
@@ -23,7 +30,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch(BaseUrl+'/auth/login', {
+        const response = await fetch(BaseUrl + '/auth/login', {
             method: "POST",
             headers: {
                 'Content-Type': "application/json"
@@ -43,9 +50,9 @@ const Login = () => {
                 phone: data.data.phone
             }
             localStorage.setItem('userData', JSON.stringify(userData))
-            userLogin.email='';
-            userLogin.password='';
-        
+            userLogin.email = '';
+            userLogin.password = '';
+
             navigate("/")
         } else {
             toast.error(data.message)

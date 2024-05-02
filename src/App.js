@@ -87,12 +87,8 @@ function App() {
           <Route path='profile' element={<Profile orderList={orderList} setOrderList={setOrderList} isLoading={isLoading} />} />
         </Route>
 
-        {userData === null && (
-          <>
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Login />} />
-          </>
-        )}
 
       </Routes>
     </>
