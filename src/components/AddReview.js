@@ -1,76 +1,60 @@
-import { useState } from "react";
-import { IoIosAddCircle } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BaseUrl from "../constants";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 
-const ReviewUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) => {
+const ReviewUserForm = ({ setIsReviewAdd, setIsLoading, reviewText, setReviewText }) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
 
-
-    const [reviewText, setEditUser] = useState("")
-
-        const onChange = (e) => {
-            setEditUser(e.target.value)
-        }
-
-    const handleEdit = async (e) => {
+    const handleAddReview = async (e) => {
         e.preventDefault()
+        console.log(reviewText)
         setIsLoading(true)
-        setIsLoadingText('Updaetig profile..')
-        const response = await fetch(BaseUrl+'/user/reviewUser', {
+
+        const response = await fetch(BaseUrl + "/user/reviewUser", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({userId:userData?.userId,toUserId:1008,review:review})
+            body: JSON.stringify({ userId: userData.userId, toUserId: reviewText?.toUserId, review: reviewText?.review, rating: reviewText?.rating })
         })
         const data = await response.json()
-
+        console.log(data)
         if (data.status) {
-            const updateUser = {
-                userId: data.data.userId,
-                name: data.data.name,
-                email: data.data.email,
-                profileUser: data.data.profileUser,
-                userType: data.data.userType,
-                city: data.data.city,
-                phone: data.data.phone
-            }
-            setIsLoading(false)
             toast.success(data.message)
-            localStorage.setItem('userData', JSON.stringify(updateUser))
-
         } else {
-            setIsLoading(false)
             toast.error(data.message)
         }
-        setIsEditPro(false)
+        setIsReviewAdd(false)
+        setIsLoading(false)
     }
-
-
 
     return (
         <div className="edit-profile container-center">
             <form>
                 <div>
-                    <h3>Edit Profile</h3>
-                    <IoCloseSharp className="close-icon" onClick={() => setIsEditPro(false)} />
+                    <h3>Review</h3>
+                    <IoCloseSharp className="close-icon" onClick={() => setIsReviewAdd(false)} />
                 </div>
-                {/* <div className="Img-Inpute">
-                    <label htmlFor="imgs"><IoIosAddCircle  /></label>
-                    <input type="file" id="imgs" onChange={(e) => setAddImg(e.target.files[0])} />
-                    <img src="./demo-profile.jpg" width={"100px"} />
-                </div> */}
                 <div>
-                    <p>Name</p>  <input type="text" name="review" onChange={onChange} value={reviewText} />
+
+                    <div className="review-star container-center ">
+                        <span>Rating</span>
+                        <Rating
+                            style={{ maxWidth: 150 }}
+                            value={reviewText.rating}
+                            onChange={(newValue) => { setReviewText({ ...reviewText, rating: newValue }) }}
+                        />
+                    </div>
+                    <textarea className="review-inputs" type="text" cols={50} rows={10} onChange={(e)=>setReviewText({...reviewText,review:e.target.value})} value={reviewText.review} ></textarea>
                 </div>
-                <button className="edit-save" onClick={handleEdit}>Save</button>
+                <button className="edit-save" onClick={handleAddReview}>Add Review</button>
             </form>
         </div>
     )
 };
 
-export default EditUserForm;
+export default ReviewUserForm;

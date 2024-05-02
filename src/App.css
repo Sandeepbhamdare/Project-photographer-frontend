@@ -676,6 +676,10 @@
   margin-right: 20px;
 }
 
+.order-detail2 {
+  margin-right: 60px;
+}
+
 .order-icons {
   font-size: 20px;
 }
@@ -967,24 +971,38 @@
 }
 
 .review-btn {
-  color: green;
-  width: 90px;
-  height: 35px;
-  font-size: 13px;
-  background-color: #ffffff00;
+  padding: 8px 11px;
+  margin: 10px;
+  font-size: 12px;
+  background-color: green;
+  color: white;
   border: 1px solid green;
-  padding: 5px;
-  border-radius: 10px;
+  border-radius: 6px;
   position: absolute;
-  top: 5px;
-  right: 15px;
-  display: none;
+  top: 0;
+  right: 0;
 }
 
-.review:hover {
-  background-color: #0c9d0c;
-  color: white;
+.review-btn:hover {
+  background-color: #ffffff00;
+  color: green;
 }
-.order:hover .review-btn{
+
+.order:hover .review-btn {
   display: block;
+}
+
+.review-star {
+  position: absolute;
+  bottom: 70px;
+  gap: 10px
+}
+.review-star>span{
+  font-weight:600;
+}
+
+.review-inputs{
+  margin-bottom: 35px;
+  border-radius: 10px;
+  padding: 10px;
 }
