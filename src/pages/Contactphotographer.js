@@ -17,7 +17,7 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
 
     const handleOrderPlaced = async (uId) => {
         setOrderplaced(true)
-        const response = await fetch(BaseUrl+'/order/addBooking', {
+        const response = await fetch(BaseUrl + '/order/addBooking', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -27,8 +27,8 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
         const data = await response.json()
         if (data.status) {
             toast.success(data.message)
+            setOrderList(data.data)
             setTimeout(() => {
-
                 navigate('/profile')
             }, 3000)
         }

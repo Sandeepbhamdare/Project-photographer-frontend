@@ -57,8 +57,8 @@ const handleDeleteOrder = async (delId) => {
                                 {new Date(ob.createdAt).toLocaleDateString()}{" "}
                                 {new Date(ob.createdAt).toLocaleTimeString()}
                             </p>
-                            <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob.bookingId)}><IoMdTrash /></button>
-                            <button  onClick={() => handleDeleteOrder(ob.bookingId)}><h2>Add Review</h2></button>
+                            <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob?.bookingId)}><IoMdTrash /></button>
+                            <button  onClick={() => handleDeleteOrder(ob?.bookingId)}><h2>Add Review</h2></button>
                         </div>
                     ))}
                     <p style={{fontSize:"10px"}}>please reload the page to update to order list</p>

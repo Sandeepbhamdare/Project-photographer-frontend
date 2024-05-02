@@ -25,9 +25,9 @@ function App() {
 
 
   useEffect(() => {
-    if (!userData === null) {
-      handleGetOrderList()
-    }
+
+    handleGetOrderList()
+
   }, [])
 
 
@@ -39,7 +39,7 @@ function App() {
     e.preventDefault()
     setIsLoading(true)
 
-    const response = await fetch(BaseUrl+"/user/getUsers", {
+    const response = await fetch(BaseUrl + "/user/getUsers", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ function App() {
   }
 
   const handleGetOrderList = async () => {
-    const response = await fetch(BaseUrl+'/order/allBooking', {
+    const response = await fetch(BaseUrl + '/order/allBooking', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -75,25 +75,25 @@ function App() {
 
   const handleDeleteOrder = async (delId) => {
     setIsLoading(true)
-    const response = await fetch(BaseUrl+'/order/deleteBooking', {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ userId: userData?.userId, bookingId: delId })
+    const response = await fetch(BaseUrl + '/order/deleteBooking', {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ userId: userData?.userId, bookingId: delId })
     })
     const data = await response.json()
     if (data.status) {
-        console.log(data)
-        const filterList=orderList.filter(ob=>ob.bookingId!==delId)
-        setOrderList(filterList)
-        toast.success(data.message)
+      console.log(data)
+      const filterList = orderList.filter(ob => ob.bookingId !== delId)
+      setOrderList(filterList)
+      toast.success(data.message)
     }
     else {
-        toast.error(data.message)
+      toast.error(data.message)
     }
     setIsLoading(false)
-}
+  }
 
 
 
@@ -109,10 +109,13 @@ function App() {
           <Route path='profile' element={<Profile orderList={orderList} setOrderList={setOrderList} isLoading={isLoading} />} />
         </Route>
 
-        {!userData ? <>
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-        </> : ""}
+        {userData === null && (
+          <>
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
+          </>
+        )}
+
       </Routes>
     </>
   );
