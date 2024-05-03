@@ -15,11 +15,11 @@ const HeroSection = () => {
     const [reviewList, setReviewList] = useState([]);
 
     useEffect(() => {
-        if(userData)  getAllReview()
+        if (userData) getAllReview()
     }, [])
 
     const getAllReview = async () => {
-        const response = await fetch(BaseUrl+"/user/getAllReview", {
+        const response = await fetch(BaseUrl + "/user/getAllReview", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ const HeroSection = () => {
 
 
     // const handleDeleteReview = async (rId) => {
-        // const response = await fetch(BaseUrl+"/user/deleteReview", {
+    // const response = await fetch(BaseUrl+"/user/deleteReview", {
     //         method: "POST",
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ const HeroSection = () => {
 
             </section>
 
-            {(userData&&userData.userType === 2) ?
+            {(userData && userData.userType === 2 && reviewList && reviewList.length > 0) ?
                 <section className="review-section">
                     <h1>Review</h1>
                     <div className="review-container container-center">
@@ -91,7 +91,7 @@ const HeroSection = () => {
 
                                     {/* <button className="review-delete-btn" ><IoMdTrash /></button> */}
 
-                                    <h1><div className="order-detail1"><img src={ob.userData[0].profileUrl??"default-profile.png"}/></div> {ob.userData[0].name}</h1>
+                                    <h1><div className="order-detail1"><img src={ob.userData[0].profileUrl ?? "default-profile.png"} /></div> {ob.userData[0].name}</h1>
                                     <p className="rating">{renderStars(ob.rating)}</p>
                                     <p>“{ob.review}”</p>
                                 </div>
