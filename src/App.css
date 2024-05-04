@@ -725,6 +725,9 @@
   background-color: #00000096;
   position: fixed;
 }
+.popUp-section{
+  left: 0px;
+}
 
 .popUp-section>div {
   background-color: #0B31FA;
