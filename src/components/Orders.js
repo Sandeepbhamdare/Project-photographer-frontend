@@ -12,9 +12,6 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
     const [isReviewAdd, setIsReviewAdd] = useState(false)
     const [reviewText, setReviewText] = useState({ toUserId: "", review: 0, rating: "" })
 
-    useEffect(() => {
-
-    }, []);
 
     const handleDeleteOrder = async (delId) => {
         setIsLoading(true)
