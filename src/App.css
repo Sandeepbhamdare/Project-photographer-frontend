@@ -166,7 +166,16 @@
   text-decoration: none;
   color: white;
   font-size: 13px;
+  padding: 10px 15px;
 }
+
+.nav-link-defaul:hover {
+  background-color: #FFC94A;
+  border-radius: 10px;
+  color: #030138;
+}
+
+
 
 
 .logo-img {
@@ -178,6 +187,18 @@
   height: 50px;
   width: 50px;
   border-radius: 30px;
+}
+
+.profile-icon {
+  font-size: 25px;
+  color: white;
+  padding: 5px 5px 0px 5px;
+}
+
+.profile-icon:hover {
+  background-color: #FFC94A;
+  border-radius: 10px;
+  color: #030138;
 }
 
 /* hero section */
@@ -510,6 +531,7 @@
   color: #fd4f4f;
 }
 
+.booked-btn,
 .edit-save,
 .contact-btn {
   padding: 10px 30px;
@@ -521,10 +543,20 @@
   font-weight: 700;
 }
 
+.booked-btn {
+  border: 1px solid #fd4f4f;
+  background-color: #fd4f4f;
+}
+
 .edit-save:hover,
 .contact-btn:hover {
   background-color: #ffffff00;
   color: #0B31FA;
+}
+
+.alert {
+  padding: 35px 60px;
+  text-align: center;
 }
 
 /* Contact Photographer Page + some Profile page CSS */
@@ -726,7 +758,8 @@
   background-color: #00000096;
   position: fixed;
 }
-.popUp-section{
+
+.popUp-section {
   left: 0px;
 }
 

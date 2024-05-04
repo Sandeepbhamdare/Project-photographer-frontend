@@ -52,6 +52,9 @@ function App() {
     if (data.status) {
       const filteredPhotoGrapherList = data.data.filter(photographer => photographer.userId !== userData.userId);
       setPhotoGrapherList(filteredPhotoGrapherList);
+    }else{
+      setPhotoGrapherList([])
+      toast.error(data.message)
     }
     setIsLoading(false)
   }
@@ -80,7 +83,7 @@ function App() {
           <Route index element={<HeroSection />} />
           <Route path='service' element={<Service />} />
           <Route path='about' element={<About />} />
-          <Route path='search' element={<SearchPhotographer onChage={onChage} handleSearch={handleSearch} searchuser={searchuser} photoGrapherList={photoGrapherList} isLoading={isLoading} />}/>
+          <Route path='search' element={<SearchPhotographer onChage={onChage} handleSearch={handleSearch} searchuser={searchuser} photoGrapherList={photoGrapherList} isLoading={isLoading} orderList={orderList} />}/>
           <Route path='profile' element={<Profile orderList={orderList} setOrderList={setOrderList} isLoading={isLoading}    handleGetOrderList={   handleGetOrderList}/>} />
         </Route>
 
