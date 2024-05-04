@@ -59,6 +59,7 @@ const Login = () => {
             toast.error(data.message)
             setForgetPass({ isforgetPass: true })
         }
+        setUserLogin( {email: "", password: "" })
     }
 
     const handleReset = (e) => {
