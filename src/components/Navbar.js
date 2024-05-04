@@ -25,7 +25,7 @@ const Navbar = () => {
 
                     <li>
                         {userData === null ?
-                            <NavLink to="profile" className="profile-icon" >
+                            <NavLink to="profile" className="profile-icon">
                                 <FaRegUserCircle />
                             </NavLink> :
                             <NavLink to="profile">

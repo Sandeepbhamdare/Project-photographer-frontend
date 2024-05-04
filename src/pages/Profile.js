@@ -14,13 +14,8 @@ import { FaPlus } from "react-icons/fa6";
 
 const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderList }) => {
 
-    const [settings, setSettings] = useState(false)
-    const [isEditPro, setIsEditPro] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [isImgAdd, setIsImgAdd] = useState(false)
+    const [isPopup, setIsPopup] = useState({ settings: false, isEditPro: false, isLoading: false, isImgAdd: false, isChangePassword: false,isdeleteForm:false })
     const [isLoadingText, setIsLoadingText] = useState("")
-    const [isChangePassword, setIsChangePassword] = useState(false)
-    const [isdeleteForm, setIsdeleteForm] = useState(false)
     const [addImg, setAddImg] = useState(" ./default-profile.png")
 
     const localUserData = localStorage.getItem('userData')
@@ -35,14 +30,14 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
         } else {
             handleGetOrderList()
         }
-    }, [])
+    }, [orderList])
 
 
     const handleLogout = () => {
-        setIsLoading(true)
+        setIsPopup({isLoading:true})
         setTimeout(() => {
             localStorage.removeItem('userData')
-            setIsLoading(false)
+            setIsPopup({ isLoading: false })
             navigate('/login')
         }, 3000)
     }
@@ -56,7 +51,7 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
             };
             reader.readAsDataURL(file);
             setAddImg(file);
-            setIsImgAdd(true);
+            setIsPopup({ setIsImgAdd: true })
         }
     };
 
@@ -71,7 +66,7 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
         })
         const data = await response.json()
         console.log(data)
-        setIsImgAdd(false)
+        setIsPopup({ setIsImgAdd: false })
     }
     console.log(addImg)
     return (
@@ -82,7 +77,7 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
                     <input type="file" id="imgs" onChange={(e) => onChange(e)} />
                     <img src={userData && userData.profileUrl ? userData.profileUrl : addImg} width={"170px"} height={"170px"} />
 
-                    {isImgAdd ? <button onClick={handleSetProfileImg}>Upload</button> : ""}
+                    {isPopup.isImgAdd ? <button onClick={handleSetProfileImg}>Upload</button> : ""}
 
                 </div>
                 {/* <img src="./demo-profile.jpg" /> */}
@@ -94,36 +89,35 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
                     <p> <MdOutlinePhoneInTalk className="contact-icons" /><span> +91{userData ? userData.phone : "Loading..."}</span></p>
                     <p> <MdOutlineMail className="contact-icons " /><span>{userData ? userData.email : "Loading..."}</span></p>
                 </div>
-                <MdManageAccounts className="edit-icon" onClick={() => setSettings(!settings)} />
+                <MdManageAccounts className="edit-icon" onClick={() => setIsPopup({ settings: true })} />
                 <button className="logout-btn" onClick={handleLogout}>
                     <MdLogout /> LogOut
                 </button>
 
                 {/* Setting section */}
-                {settings ?
-                    <SettingsSection setIsEditPro={setIsEditPro} setSettings={setSettings}
-                        setChangePassword={setIsChangePassword} setIsdeleteForm={setIsdeleteForm} /> : ""}
+                {isPopup.settings ?
+                    <SettingsSection setIsPopup={setIsPopup} /> : ""}
             </section>
 
             {/* Order section */}
-            <Orders orderList={orderList} setOrderList={setOrderList} handleDeleteOrder={handleDeleteOrder} isLoading={isLoading} setIsLoading={setIsLoading} />
+            <Orders orderList={orderList} setOrderList={setOrderList} handleDeleteOrder={handleDeleteOrder} isPopup={isPopup} setIsPopup={setIsPopup}  />
 
 
             {/* edit user Form*/}
-            {isEditPro &&
-                <EditUserForm setIsEditPro={setIsEditPro} setAddImg={setAddImg} setIsLoading={setIsLoading} setIsLoadingText={setIsLoadingText} />
+            {isPopup.isEditPro &&
+                <EditUserForm  setIsPopup={setIsPopup} setIsLoadingText={setIsLoadingText} />
             }
 
             {/* change password form */}
-            {isChangePassword ?
-                <ChangePassword setIsChangePassword={setIsChangePassword} isChangePassword={isChangePassword} setIsLoading={setIsLoading} setIsLoadingText={setIsLoadingText} /> : ""}
+            {isPopup.isChangePassword ?
+                <ChangePassword setIsPopup={setIsPopup} setIsLoadingText={setIsLoadingText} /> : ""}
 
             {/* delete account form  */}
-            {isdeleteForm ? <DeleteForm setIsdeleteForm={setIsdeleteForm} setIsLoading={setIsLoading} setIsLoadingText={setIsLoadingText} /> : ""}
+            {isPopup.isdeleteForm ? <DeleteForm setIsPopup={setIsPopup} setIsLoadingText={setIsLoadingText} /> : ""}
 
             {/* loading */}
-            {isLoading ? <Loader msg={"Loading..."} /> : ""}
-            {isLoading ? <Loader msg={isLoadingText ?? "Logging Out.."} /> : ""}
+            {isPopup.isLoading ? <Loader msg={"Loading..."} /> : ""}
+            {isPopup.isLoading ? <Loader msg={isLoadingText ?? "Logging Out.."} /> : ""}
             <ToastContainer />
         </>
     )

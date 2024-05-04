@@ -6,10 +6,12 @@ import Loader from "../components/Loader";
 import "react-toastify/dist/ReactToastify.css";
 import ForgetPassword from "../components/ForgetPass";
 import BaseUrl from "../constants";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
 
     const [userLogin, setUserLogin] = useState({ email: "", password: "" })
+    const [showPass, setShowpass] = useState(false)
     const { email, password } = userLogin;
     const [isLoading, setIsLoading] = useState(false)
     const [forgetPass, setForgetPass] = useState({ isforgetPass: false, isForgetPassForm: false })
@@ -57,15 +59,14 @@ const Login = () => {
             navigate("/")
         } else {
             toast.error(data.message)
-            setForgetPass({ isforgetPass: true })
+            setForgetPass({ isforgetPass: true });
         }
-        setUserLogin( {email: "", password: "" })
+        setUserLogin( {email: "", password: "" });
     }
 
     const handleReset = (e) => {
         e.preventDefault()
-        setUserLogin({ email: "", password: "" })
-
+        setUserLogin({ email: "", password: "" });
     }
 
     return (
@@ -80,9 +81,12 @@ const Login = () => {
                         <p >E-mail</p>
                         <input type="email" name="email" value={userLogin.email} onChange={onChange} />
                     </div>
-                    <div>
+                    <div className="password-input">
                         <p>Password</p>
-                        <input type="password" name="password" value={userLogin.password} onChange={onChange} />
+                        <input  type={showPass ? "text" : "password"} name="password" value={userLogin.password} onChange={onChange} />
+                        <span className="password-icon" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
+                        {/*  */}
+
                     </div>
 
                     {

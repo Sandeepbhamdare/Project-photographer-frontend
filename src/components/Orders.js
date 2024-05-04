@@ -1,12 +1,12 @@
 import { MdOutlineMail, MdOutlinePhoneInTalk, MdRateReview } from "react-icons/md";
 import { IoMdTrash } from "react-icons/io";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Loader from "./Loader";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import ReviewUserForm from "./AddReview";
 import BaseUrl from "../constants";
 
-const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
+const Orders = ({ orderList, setOrderList,isPopup,setIsPopup }) => {
 
     const userData = JSON.parse(localStorage.getItem('userData'))
     const [isReviewAdd, setIsReviewAdd] = useState(false)
@@ -14,7 +14,7 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
 
 
     const handleDeleteOrder = async (delId) => {
-        setIsLoading(true)
+        setIsPopup({isLoading:true})
         const response = await fetch(BaseUrl + "/order/deleteBooking", {
             method: "DELETE",
             headers: {
@@ -32,7 +32,7 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
             toast.error(data.message)
             console.log(data)
         }
-        setIsLoading(false)
+        setIsPopup({isLoading:false})
     }
 
 
@@ -67,10 +67,10 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
             </div >
 
             {/* loading stection */}
-            {isLoading ? <Loader msg={"Deleting Order"} /> : ""}
+            {isPopup.isLoading ? <Loader msg={"Deleting Order"} /> : ""}
 
             {/* user Review Form */}
-            {isReviewAdd ? <ReviewUserForm setIsReviewAdd={setIsReviewAdd} setIsLoading={setIsLoading} reviewText={reviewText} setReviewText={setReviewText} /> : ""}
+            {isReviewAdd ? <ReviewUserForm setIsReviewAdd={setIsReviewAdd} setIsPopup={setIsPopup} reviewText={reviewText} setReviewText={setReviewText} /> : ""}
         </>
     )
 }

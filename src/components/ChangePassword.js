@@ -2,12 +2,14 @@ import { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BaseUrl from "../constants";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText }) => {
+const ChangePassword = ({ setIsPopup ,setIsLoadingText }) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
 
+    const [showPass, setShowpass] = useState({oldPassword:false,newPassword:false})
     const [changePassword, setChangePassword] = useState({ userId: userData && userData.userId, password: "", newPassword: "" })
 
     const onChangePassword = (e) => {
@@ -17,7 +19,7 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText })
     const handleChangePassword = async (e) => {
         e.preventDefault()
         setIsLoadingText('Changing password..')
-        setIsLoading(true)
+        setIsPopup({isLoading:true})
 
         const response = await fetch(BaseUrl+"/auth/changePassword", {
             method: "POST",
@@ -37,15 +39,15 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText })
                 city: data.data.city,
                 phone: data.data.phone
             }
-            setIsLoading(false)
+            setIsPopup({isLoading:false})
             toast.success(data.message)
             localStorage.setItem('userData', JSON.stringify(updateUser))
 
         } else {
-            setIsLoading(false)
+            setIsPopup({isLoading:false})
             toast.error(data.message)
         }
-        setIsChangePassword(false)
+        setIsPopup({isChangePassword:false})
     }
 
     return (
@@ -53,13 +55,15 @@ const ChangePassword = ({ setIsChangePassword, setIsLoading ,setIsLoadingText })
             <form>
                 <div>
                     <h3>Chage Password</h3>
-                    <IoCloseSharp className="close-icon" onClick={() => setChangePassword(false)} />
+                    <IoCloseSharp className="close-icon" onClick={() => setIsPopup({isChangePassword:false})} />
                 </div>
                 <div>
-                    <p>Current Password</p>  <input type="text" name="password" value={changePassword.password} onChange={onChangePassword} />
+                    <p>Current Password</p>  <input type={showPass.oldPassword ? "text" : "password"} name="password" value={changePassword.password} onChange={onChangePassword} />
+                    <span className="edit-password-icon" onClick={() => setShowpass({oldPassword:!showPass.oldPassword})}>{showPass.oldPassword?<FaEye />:<FaEyeSlash />}</span>
                 </div>
                 <div>
-                    <p>New Password</p> <input type="text" name="newPassword" value={changePassword.newPassword} onChange={onChangePassword} />
+                    <p>New Password</p> <input type={showPass.newPassword ? "text" : "password"} name="newPassword" value={changePassword.newPassword} onChange={onChangePassword} />
+                    <span className="edit-password-icon newpass" onClick={() => setShowpass({newPassword:!showPass.newPassword})}>{showPass.newPassword?<FaEye />:<FaEyeSlash />}</span>
                 </div>
                 <button className="edit-save" onClick={handleChangePassword}>Save</button>
             </form>

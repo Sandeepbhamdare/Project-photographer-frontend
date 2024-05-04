@@ -3,11 +3,13 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import BaseUrl from "../constants";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const DeleteForm = ({ setIsdeleteForm, setIsLoading ,setIsLoadingText }) => {
+const DeleteForm = ({ setIsPopup, setIsLoadingText }) => {
 
     const navigate = useNavigate()
     const [delUser, setDelUser] = useState({ email: "", password: "" })
+    const [showPass, setShowpass] = useState(false)
 
     const onChange = (e) => {
         setDelUser({ ...delUser, [e.target.name]: e.target.value })
@@ -16,8 +18,8 @@ const DeleteForm = ({ setIsdeleteForm, setIsLoading ,setIsLoadingText }) => {
     const handleDeleteUser = async (e) => {
         e.preventDefault()
         setIsLoadingText('Deleteting user ..')
-        setIsLoading(true)
-        const response = await fetch(BaseUrl+'/auth/deleteAccount', {
+        setIsPopup({ isLoading: true })
+        const response = await fetch(BaseUrl + '/auth/deleteAccount', {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'
@@ -26,28 +28,29 @@ const DeleteForm = ({ setIsdeleteForm, setIsLoading ,setIsLoadingText }) => {
         })
         const data = await response.json()
         if (data.status) {
-            setIsLoading(false)
+            setIsPopup({ isLoading: false })
             localStorage.removeItem('userData')
             toast.success(data.message)
             navigate('/')
         } else {
-            setIsLoading(false)
+            setIsPopup({ isLoading: false })
             toast.error(data.message)
         }
-        setIsdeleteForm(false)
+        setIsPopup({ isdeleteForm: false })
     }
     return (
         <div className="edit-profile container-center">
             <form>
                 <div>
                     <h3>Delete Account</h3>
-                    <IoCloseSharp className="close-icon" onClick={() => setIsdeleteForm(false)} />
+                    <IoCloseSharp className="close-icon" onClick={() => setIsPopup({ isdeleteForm: false })} />
                 </div>
                 <div>
-                    <p>Email</p>  <input type="email" name="email" value={delUser && delUser.email} onChange={onChange}/>
+                    <p>Email</p>  <input type="email" name="email" value={delUser && delUser.email} onChange={onChange} />
                 </div>
                 <div>
-                    <p>Password</p> <input type="password" name="password" value={delUser && delUser.password} onChange={onChange} />
+                    <p>Password</p> <input type={showPass ? "text" : "password"} name="password" value={delUser && delUser.password} onChange={onChange} />
+                    <span className="password-icon" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
                 </div>
                 <button className="edit-save" onClick={handleDeleteUser}>Save</button>
             </form>

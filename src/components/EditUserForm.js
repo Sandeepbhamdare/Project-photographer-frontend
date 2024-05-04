@@ -3,7 +3,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import BaseUrl from "../constants";
 
-const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) => {
+const EditUserForm = ({setIsPopup ,setIsLoadingText}) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
@@ -19,7 +19,7 @@ const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) =
 
     const handleEdit = async (e) => {
         e.preventDefault()
-        setIsLoading(true)
+        setIsPopup({isLoading:true})
         setIsLoadingText('Updaetig profile..')
         const response = await fetch(BaseUrl+'/user/updateProfile', {
             method: "POST",
@@ -40,15 +40,16 @@ const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) =
                 city: data.data.city,
                 phone: data.data.phone
             }
-            setIsLoading(false)
+            
+            setIsPopup({isLoading:false})
             toast.success(data.message)
             localStorage.setItem('userData', JSON.stringify(updateUser))
 
         } else {
-            setIsLoading(false)
+            setIsPopup({isLoading:false})
             toast.error(data.message)
         }
-        setIsEditPro(false)
+        setIsPopup({isEditPro:false})
     }
 
 
@@ -58,7 +59,7 @@ const EditUserForm = ({setIsEditPro ,setAddImg,setIsLoading,setIsLoadingText}) =
             <form>
                 <div>
                     <h3>Edit Profile</h3>
-                    <IoCloseSharp className="close-icon" onClick={() => setIsEditPro(false)} />
+                    <IoCloseSharp className="close-icon" onClick={() => setIsPopup({isEditPro:false})} />
                 </div>
               
                 <div>

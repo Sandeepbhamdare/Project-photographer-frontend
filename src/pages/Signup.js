@@ -5,12 +5,14 @@ import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BaseUrl from "../constants";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
 
     const navigate = useNavigate()
     const [newUser, setNewUser] = useState({ name: "", email: "", password: "", city: "", phone: "", userType: undefined })
     const [loading, setLoading] = useState(false);
+    const [showPass, setShowpass] = useState(false)
 
     const { name, email, password, city, phone, userType } = newUser;
 
@@ -67,10 +69,12 @@ const Signup = () => {
                         <p >E-mail</p>
                         <input type="email" name="email" value={newUser.email} onChange={onChange} />
                     </div>
-                    <div>
+                    <div className="password-input">
                         <p>Password</p>
-                        <input type="Password" name="password" value={newUser.password} onChange={onChange} />
+                        <input  type={showPass ? "text" : "password"} name="password" value={newUser.password} onChange={onChange} />
+                        <span className="password-icon delPass" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
                     </div>
+
                     <div>
                         <p >City</p>
                         <input type="text" name="city" value={newUser.city} onChange={onChange} />

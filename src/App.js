@@ -22,8 +22,8 @@ function App() {
 
   const [searchuser, setSearchUser] = useState({ userId: userData ? userData.userId : "", query: "", })
   const [photoGrapherList, setPhotoGrapherList] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
   const [orderList, setOrderList] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
 
   useEffect(() => {
