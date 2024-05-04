@@ -40,11 +40,12 @@ const Login = () => {
         const data = await response.json()
         setIsLoading(false)
         if (data.status) {
+            console.log(data)
             const userData = {
                 userId: data.data.userId,
                 name: data.data.name,
                 email: data.data.email,
-                profileUser: data.data.profileUser,
+                profileUser: data.data.profileUrl,
                 userType: data.data.userType,
                 city: data.data.city,
                 phone: data.data.phone
