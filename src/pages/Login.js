@@ -45,7 +45,7 @@ const Login = () => {
                 userId: data.data.userId,
                 name: data.data.name,
                 email: data.data.email,
-                profileUser: data.data.profileUrl,
+                profileUrl: data.data.profileUrl,
                 userType: data.data.userType,
                 city: data.data.city,
                 phone: data.data.phone

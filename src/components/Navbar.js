@@ -4,6 +4,7 @@ const Navbar = () => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
+    console.log(userData.profileUrl)
 
     return (
         <>
@@ -24,7 +25,7 @@ const Navbar = () => {
 
                     <li>
                         <Link to="profile">
-                            <img src={userData.profileUrl?userData.profileUrl:"./default-profile.png"} className="profile-img" />
+                            <img src={userData.profileUrl?userData.profileUrl :"./default-profile.png"} className="profile-img" />
                         </Link>
                     </li>
                 </ul>
