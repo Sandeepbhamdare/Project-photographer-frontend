@@ -6,9 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import BaseUrl from "../constants";
 
-const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setOrderList }) => {
+const Contactphotographer = ({ setIsContact, photoGrapherDetail }) => {
 
-    console.log(orderList)
     const userData = JSON.parse(localStorage.getItem('userData'))
     const navigate = useNavigate()
 
@@ -24,14 +23,15 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
             },
             body: JSON.stringify({ userId: userData?.userId, toUserId: photoGrapherDetail?.userId })
         })
+     
         const data = await response.json()
+        console.log(data)
         if (data.status) {
+
             toast.success(data.message)
-            setOrderList(data.data)
-            setTimeout(() => {
-                setOrderplaced(false)
-                navigate('/profile')
-            }, 3000)
+            setOrderplaced(false)
+            navigate('/profile')
+
         }
         else {
             setOrderplaced(false)
@@ -40,13 +40,12 @@ const Contactphotographer = ({ setIsContact, photoGrapherDetail, orderList, setO
         }
     }
 
-
     return (
         <>
             <section className="contact-section">
                 <IoMdArrowBack className="back-btn" onClick={() => setIsContact(false)} />
 
-                <img src="./default-profile.png" />
+                <img src={photoGrapherDetail.profileUrl ? photoGrapherDetail.profileUrl : "./default-profile.png"} />
                 <div>
                     <p className="photograper-name">{photoGrapherDetail.name}</p>
                     <p className="photograper-city">

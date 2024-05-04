@@ -12,15 +12,13 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
     const [isReviewAdd, setIsReviewAdd] = useState(false)
     const [reviewText, setReviewText] = useState({ toUserId: "", review: 0, rating: "" })
 
-    console.log(orderList)
-
     useEffect(() => {
 
-    }, [orderList]);
+    }, []);
 
     const handleDeleteOrder = async (delId) => {
         setIsLoading(true)
-        const response = await fetch(BaseUrl +"/order/deleteBooking", {
+        const response = await fetch(BaseUrl + "/order/deleteBooking", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -49,12 +47,12 @@ const Orders = ({ orderList, setOrderList, isLoading, setIsLoading }) => {
                 {orderList?.length > 0 ? orderList.map((ob, index) => (
                     <div className="order" key={index}>
                         <div className="order-detail1">
-                            <img src={ob.userData[0]?.profileUrl ?? "./default-profile.png"} />
-                            <p>{ob.userData[0]?.name}</p>
+                            <img src={ob.userData && ob.userData[0]?.profileUrl || "./default-profile.png"} />
+                            <p>{ob.userData && ob.userData[0]?.name}</p>
                         </div>
                         <div className="order-detail2">
-                            <p><MdOutlineMail className="order-icons" /> <span>{ob.userData[0]?.email}</span></p>
-                            <p><MdOutlinePhoneInTalk className="order-icons" /> <span> {ob.userData[0]?.phone}</span></p>
+                            <p><MdOutlineMail className="order-icons" /> <span>{ob.userData && ob.userData[0]?.email}</span></p>
+                            <p><MdOutlinePhoneInTalk className="order-icons" /> <span> {ob.userData && ob.userData[0]?.phone}</span></p>
                         </div>
                         <p className="time-date">
                             {new Date(ob.createdAt).toLocaleDateString()}{" "}

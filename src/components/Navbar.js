@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
+    const localUserData = localStorage.getItem('userData')
+    const userData = localUserData ? JSON.parse(localUserData) : null;
+
     return (
         <>
             <nav className="navbar ">
@@ -21,7 +24,7 @@ const Navbar = () => {
 
                     <li>
                         <Link to="profile">
-                            <img src="./demo-profile.jpg" className="profile-img" />
+                            <img src={userData.profileUrl?userData.profileUrl:"./default-profile.png"} className="profile-img" />
                         </Link>
                     </li>
                 </ul>

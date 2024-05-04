@@ -2,7 +2,7 @@ import { IoLocation } from "react-icons/io5";
 import Contactphotographer from "../pages/Contactphotographer";
 import { useState } from "react";
 
-const Card = ({ name, city, userId, profileUrl, email, phone, orderList, setOrderList}) => {
+const Card = ({ name, city, userId, profileUrl, email, phone}) => {
 
     const [isContact, setIsContact] = useState(false)
     const [Photographer, setPhotographer] = useState({ userId, name, city, profileUrl, email, phone })
@@ -11,7 +11,7 @@ const Card = ({ name, city, userId, profileUrl, email, phone, orderList, setOrde
         <>
             <div className="card">
                 <div>
-                    <img src="./default-profile.png" width={"60px"} /> <p>{name}</p>
+                    <img src={profileUrl?profileUrl:"./default-profile.png"} width={"60px"} height={"60px"} /> <p>{name}</p>
                 </div>
                 <p><IoLocation className="location-icon" /> <span>{city}</span></p>
                 <button className="contact-btn" onClick={() => setIsContact(true)}>
@@ -20,7 +20,7 @@ const Card = ({ name, city, userId, profileUrl, email, phone, orderList, setOrde
             {isContact ? <>
                 <section className="contactphotographer-section container-center">
                     <div>
-                        <Contactphotographer setIsContact={setIsContact} photoGrapherDetail={Photographer}orderList={orderList} setOrderList={setOrderList}/>
+                        <Contactphotographer setIsContact={setIsContact} photoGrapherDetail={Photographer} />
                     </div>
                 </section>
             </ > : ""

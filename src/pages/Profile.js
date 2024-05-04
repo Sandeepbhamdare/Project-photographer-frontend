@@ -3,23 +3,25 @@ import { MdLogout, MdManageAccounts, MdOutlineMail, MdOutlinePhoneInTalk } from 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import SettingsSection from "../components/SettingsSection";
 import EditUserForm from "../components/EditUserForm";
 import ChangePassword from "../components/ChangePassword";
 import Orders from "../components/Orders";
 import DeleteForm from "../components/DeleteForm";
 import BaseUrl from "../constants";
+import { FaPlus } from "react-icons/fa6";
 
-const Profile = ({ orderList, setOrderList ,handleDeleteOrder }) => {
+const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderList }) => {
 
     const [settings, setSettings] = useState(false)
     const [isEditPro, setIsEditPro] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [isImgAdd, setIsImgAdd] = useState(false)
     const [isLoadingText, setIsLoadingText] = useState("")
     const [isChangePassword, setIsChangePassword] = useState(false)
     const [isdeleteForm, setIsdeleteForm] = useState(false)
-    const [addImg, setAddImg] = useState("")
+    const [addImg, setAddImg] = useState(" ./default-profile.png")
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
@@ -27,17 +29,13 @@ const Profile = ({ orderList, setOrderList ,handleDeleteOrder }) => {
     const navigate = useNavigate()
 
     useEffect(() => {
+
         if (!localUserData) {
             navigate('/login')
+        } else {
+            handleGetOrderList()
         }
-    }, [orderList])
-
-
-
-    // const formData = new FormData();
-    // formData.append('image', addImg.imgUrl);
-    // formData.append('userId', userData && userData.userId);
-
+    }, [])
 
 
     const handleLogout = () => {
@@ -49,49 +47,45 @@ const Profile = ({ orderList, setOrderList ,handleDeleteOrder }) => {
         }, 3000)
     }
 
-    // const handleSetProfileImg = async () => {
-    //     const response = await fetch('http://localhost:3002/user/updateProfileImage', {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application-json"
-    //         },
-    //         body: formData
-    //     })
-    //     const data = await response.json()
-    //     console.log(data)
-    //     setAddImg({ isImg: false })
-    // } 
-    // const handleDeleteOrder = async (id) => {
-    //     console.log('handleDeleteOrder clicnked '+userData?.userId);
-    //     const response = await fetch(BaseUrl+'/order/deleteBooking', {
-    //     method: "DELETE",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({ userId: userData?.userId, bookingId: delId })
-    // })
-    //     const response = await fetch(BaseUrl + '/order/deleteBooking',
-    //      {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application-json"
-    //         },
-    //         body: JSON.stringify({ userId: 1008, bookingId: id })
-    //     })
-    //     const data = await response.json()
-    //     console.log(data)
-    //     if (data.status) {
-    //         toast.success(data.message)
-    //     } else {
-    //         toast.error(data.message)
-    //     }
-    //     // setAddImg({ isImg: false })
-    // }
+    const onChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setAddImg(reader.result);
+            };
+            reader.readAsDataURL(file);
+            setAddImg(file);
+            setIsImgAdd(true);
+        }
+    };
 
+    const handleSetProfileImg = async () => {
+        const formData = new FormData();
+        formData.append("image", addImg);
+        formData.append("userId", userData && userData.userId);
+
+        const response = await fetch('http://localhost:3002/user/updateProfileImage', {
+            method: "POST",
+            body: formData
+        })
+        const data = await response.json()
+        console.log(data)
+        setIsImgAdd(false)
+    }
+    console.log(addImg)
     return (
         <>
             <section className="profile-secttion contact-section">
-                <img src="./demo-profile.jpg" />
+                <div className="Img-Inpute">
+                    <label htmlFor="imgs"><FaPlus /></label>
+                    <input type="file" id="imgs" onChange={(e) => onChange(e)} />
+                    <img src={userData && userData.profileUrl ? userData.profileUrl : addImg} width={"170px"} height={"170px"} />
+
+                    {isImgAdd ? <button onClick={handleSetProfileImg}>Upload</button> : ""}
+
+                </div>
+                {/* <img src="./demo-profile.jpg" /> */}
                 <div>
                     <p className="photograper-name">{userData ? userData.name : "Loading..."}</p>
                     <p className="photograper-city"> <span><IoLocation className="contact-icons red-icon" /></span>{userData ? userData.city : "Loading..."} , MP</p>

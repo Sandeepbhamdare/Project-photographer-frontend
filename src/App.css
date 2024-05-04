@@ -176,7 +176,7 @@
 
 .profile-img {
   height: 50px;
-  border-radius: 22px;
+  border-radius: 30px;
 }
 
 /* hero section */
@@ -473,6 +473,7 @@
   align-items: center;
   gap: 10px;
   border-radius: 10px;
+  padding: 10px;
 }
 
 .card:hover {
@@ -484,7 +485,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: 10%;
   font-weight: 700;
   font-size: 20px;
 }
@@ -548,6 +549,7 @@
 
 .contact-section>img {
   width: 200px;
+  height: 200px;
   border-radius: 100px;
 }
 
@@ -777,7 +779,7 @@
 }
 
 .Img-Inpute>img {
-  border-radius: 60px;
+  border-radius: 90px;
 }
 
 .Img-Inpute>input {
@@ -786,7 +788,13 @@
 
 .Img-Inpute>label {
   position: absolute;
-  font-size: 20px;
+  font-size: 16px;
+  top: 10px;
+  left: 14px;
+  color: white;
+  background-color: black;
+  padding: 3px 5px 0px 5px;
+  border-radius: 22px;
 }
 
 .close-icon {
@@ -997,12 +1005,28 @@
   bottom: 70px;
   gap: 10px
 }
-.review-star>span{
-  font-weight:600;
+
+.review-star>span {
+  font-weight: 600;
 }
 
-.review-inputs{
+.review-inputs {
   margin-bottom: 35px;
   border-radius: 10px;
   padding: 10px;
+}
+
+.Img-Inpute {
+  position: relative;
+}
+
+.Img-Inpute>button {
+  position: absolute;
+  bottom: -14px;
+  right: 55px;
+  background-color: #0b31fa;
+  padding: 5px 10px;
+  color: white;
+  border: 1px solid #0b31fa;
+  border-radius: 5px;
 }
