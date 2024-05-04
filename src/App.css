@@ -83,7 +83,6 @@
   width: 70%;
   font-size: 17px;
 }
-
 .auth-form>div>p {
   width: 70px;
 }
@@ -822,6 +821,11 @@
 .newpass{
   bottom: 29%;
 }
+.delPass{
+  right: 18%;
+  color: black;
+}
+
 
 .edit-profile>form>div>p {
   width: 75px;

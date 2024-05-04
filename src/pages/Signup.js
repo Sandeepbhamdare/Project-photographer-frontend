@@ -72,7 +72,7 @@ const Signup = () => {
                     <div className="password-input">
                         <p>Password</p>
                         <input  type={showPass ? "text" : "password"} name="password" value={newUser.password} onChange={onChange} />
-                        <span className="password-icon delPass" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
+                        <span className="password-icon " onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
                     </div>
 
                     <div>
@@ -84,7 +84,7 @@ const Signup = () => {
                         <input type="tel" name="phone" value={newUser.phone} onChange={onChange} />
                     </div>
                     <div>
-                        <p >User-types</p>
+                        <p style={{width: "100px"}}>User-types</p>
                         <select name="userType" onChange={onChange}>
                             <option >select</option>
                             <option value={2}>Photographer</option>

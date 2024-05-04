@@ -50,7 +50,7 @@ const DeleteForm = ({ setIsPopup, setIsLoadingText }) => {
                 </div>
                 <div>
                     <p>Password</p> <input type={showPass ? "text" : "password"} name="password" value={delUser && delUser.password} onChange={onChange} />
-                    <span className="password-icon" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
+                    <span className="password-icon delPass" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
                 </div>
                 <button className="edit-save" onClick={handleDeleteUser}>Save</button>
             </form>
