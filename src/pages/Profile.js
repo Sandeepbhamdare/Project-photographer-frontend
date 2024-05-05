@@ -58,14 +58,12 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
     const handleSetProfileImg = async () => {
         const formData = new FormData();
         formData.append("image", addImg);
-        formData.append("userId", userData && userData.userId);
-
-        const response = await fetch('http://localhost:3002/user/updateProfileImage', {
+        formData.append("userId", userData?.userId);
+        const response = await fetch(BaseUrl+'/user/updateProfileImage', {
             method: "POST",
             body: formData
         })
         const data = await response.json()
-        console.log(data)
         setIsPopup({ setIsImgAdd: false })
     }
     console.log(addImg)

@@ -17,7 +17,9 @@ const Navbar = () => {
                     <li>
                         <ul className="nav-link">
                             <li><NavLink to="/"  className="nav-link-defaul">Home</NavLink></li>
-                            <li><NavLink to="search"  className="nav-link-defaul">Search</NavLink></li>
+
+                           { userData.userType==1? <li><NavLink to="search"  className="nav-link-defaul">Search</NavLink></li>:<></>
+                           }
                             <li><NavLink to="service"  className="nav-link-defaul">Services</NavLink></li>
                             <li><NavLink to="about"  className="nav-link-defaul">About Us</NavLink></li>
                         </ul>
