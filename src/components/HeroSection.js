@@ -91,9 +91,9 @@ const HeroSection = () => {
 
                                     {/* <button className="review-delete-btn" ><IoMdTrash /></button> */}
 
-                                    <h1><div className="order-detail1"><img src={ob.userData[0].profileUrl ?? "default-profile.png"} /></div> {ob.userData[0].name}</h1>
-                                    <p className="rating">{renderStars(ob.rating)}</p>
-                                    <p>“{ob.review}”</p>
+                                    <h1><div className="order-detail1"><img src={ob.userData[0]?.profileUrl ?? "default-profile.png"} /></div> {ob.userData[0]?.name}</h1>
+                                    <p className="rating">{renderStars(ob?.rating)}</p>
+                                    <p>“{ob?.review}”</p>
                                 </div>
                             ))}
                         </AwesomeSlider>

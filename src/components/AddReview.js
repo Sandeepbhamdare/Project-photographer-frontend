@@ -4,14 +4,15 @@ import BaseUrl from "../constants";
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 
-const ReviewUserForm = ({ setIsReviewAdd, setIsLoading, reviewText, setReviewText }) => {
+const ReviewUserForm = ({ setIsReviewAdd, setIsLoading, reviewText, setReviewText,setIsPopup }) => {
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
 
     const handleAddReview = async (e) => {
         e.preventDefault()
-        setIsLoading(true)
+        setIsPopup({isLoading:true})
+
 
         const response = await fetch(BaseUrl + "/user/reviewUser", {
             method: "POST",
@@ -28,7 +29,7 @@ const ReviewUserForm = ({ setIsReviewAdd, setIsLoading, reviewText, setReviewTex
             toast.error(data.message)
         }
         setIsReviewAdd(false)
-        setIsLoading(false)
+        setIsPopup({isLoading:false})
     }
 
     return (

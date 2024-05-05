@@ -55,7 +55,7 @@ const Orders = ({ orderList, setOrderList,isPopup,setIsPopup }) => {
                             {new Date(ob.createdAt).toLocaleDateString()}{" "}
                             {new Date(ob.createdAt).toLocaleTimeString()}
                         </p>
-                        {userData.userType === 1 ? (
+                        {userData?.userType === 1 ? (
                             <>
                                 <button className="order-delelte-btn" onClick={() => handleDeleteOrder(ob?.bookingId)}><IoMdTrash /></button>
                                 <button className="review-btn " onClick={() => { setIsReviewAdd(true); setReviewText({ toUserId: ob?.toUserId }) }}>Add Review</button>

@@ -10,8 +10,8 @@ const EditUserForm = ({setIsPopup ,setIsLoadingText}) => {
 
 
     const [editUser, setEditUser] = useState(userData ?
-        { name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone } :
-        { name: "", city: "", userId: "", phone: "" })
+        { name: userData.name, city: userData.city, userId: userData.userId, phone: userData.phone,profileUrl:" "} :
+        { name: "", city: "", userId: "", phone: "" ,profileUrl:""})
 
         const onChange = (e) => {
             setEditUser({ ...editUser, [e.target.name]: e.target.value })

@@ -14,9 +14,10 @@ import { FaPlus } from "react-icons/fa6";
 
 const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderList }) => {
 
-    const [isPopup, setIsPopup] = useState({ settings: false, isEditPro: false, isLoading: false, isImgAdd: false, isChangePassword: false,isdeleteForm:false })
+    const [isPopup, setIsPopup] = useState({ settings: false, isEditPro: false, isLoading: false, isImgAdd: false, isChangePassword: false, isdeleteForm: false })
     const [isLoadingText, setIsLoadingText] = useState("")
-    const [addImg, setAddImg] = useState(" ./default-profile.png")
+    const [addImg, setAddImg] = useState("")
+    const [previewUrl, setPreviewUrl] = useState("./default-profile.png")
 
     const localUserData = localStorage.getItem('userData')
     const userData = localUserData ? JSON.parse(localUserData) : null;
@@ -34,7 +35,7 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
 
 
     const handleLogout = () => {
-        setIsPopup({isLoading:true})
+        setIsPopup({ isLoading: true })
         setTimeout(() => {
             localStorage.removeItem('userData')
             setIsPopup({ isLoading: false })
@@ -47,34 +48,42 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setAddImg(reader.result);
+                setAddImg(file); // Set the file object
+                setPreviewUrl(reader.result); // Set the data URL as the preview URL
+                setIsPopup({ isImgAdd: true }); // Show the image upload popup
             };
-            reader.readAsDataURL(file);
-            setAddImg(file);
-            setIsPopup({ isImgAdd: true })
+            reader.readAsDataURL(file); // Read the file as a data URL
         }
     };
-
-    const handleSetProfileImg = async () => {
-        const formData = new FormData();
-        formData.append("image", addImg);
-        formData.append("userId", userData?.userId);
-        const response = await fetch(BaseUrl+'/user/updateProfileImage', {
-            method: "POST",
-            body: formData
-        })
-        const data = await response.json()
+    const handleSetProfileImg = async() => {
+      
         setIsPopup({ isImgAdd: false })
-        console.log(data)
+        userData.profileUrl = previewUrl;
+       await localStorage.setItem('userData', JSON.stringify(userData));
     }
-    console.log(addImg)
+
+    // const handleSetProfileImg = async () => {
+    //     const formData = new FormData();
+    //     formData.append("image", addImg);
+    //     formData.append("userId", userData?.userId);
+    //     const response = await fetch(BaseUrl + '/user/updateProfileImage', {
+    //         method: "POST",
+    //         body: formData
+    //     })
+    //     const data = await response.json()
+    //     setIsPopup({ isImgAdd: false })
+    //     console.log(data)
+    // }
+    // console.log(addImg)
     return (
         <>
             <section className="profile-secttion contact-section">
                 <div className="Img-Inpute">
                     <label htmlFor="imgs"><FaPlus /></label>
                     <input type="file" id="imgs" onChange={(e) => onChange(e)} />
-                    <img src={userData && userData.profileUrl ? userData.profileUrl : addImg} width={"170px"} height={"170px"} />
+                    {previewUrl && (
+                        <img src={userData?.profileUrl?userData.profileUrl:previewUrl} width={"170px"} height={"170px"} />)}
+                    {/* <img src={addImg ? addImg : (userData && userData.profileUrl ? userData.profileUrl : "./default-profile.png")} width={"170px"} height={"170px"} /> */}
 
                     {isPopup.isImgAdd ? <button onClick={handleSetProfileImg}>Upload</button> : ""}
 
@@ -99,12 +108,12 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
             </section>
 
             {/* Order section */}
-            <Orders orderList={orderList} setOrderList={setOrderList} handleDeleteOrder={handleDeleteOrder} isPopup={isPopup} setIsPopup={setIsPopup}  />
+            <Orders orderList={orderList} setOrderList={setOrderList} handleDeleteOrder={handleDeleteOrder} isPopup={isPopup} setIsPopup={setIsPopup} />
 
 
             {/* edit user Form*/}
             {isPopup.isEditPro &&
-                <EditUserForm  setIsPopup={setIsPopup} setIsLoadingText={setIsLoadingText} />
+                <EditUserForm setIsPopup={setIsPopup} setIsLoadingText={setIsLoadingText} />
             }
 
             {/* change password form */}
