@@ -51,7 +51,7 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
             };
             reader.readAsDataURL(file);
             setAddImg(file);
-            setIsPopup({ setIsImgAdd: true })
+            setIsPopup({ isImgAdd: true })
         }
     };
 
@@ -64,7 +64,8 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
             body: formData
         })
         const data = await response.json()
-        setIsPopup({ setIsImgAdd: false })
+        setIsPopup({ isImgAdd: false })
+        console.log(data)
     }
     console.log(addImg)
     return (
