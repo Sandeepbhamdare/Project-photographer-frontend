@@ -30,7 +30,7 @@ const Profile = ({ orderList, setOrderList, handleDeleteOrder, handleGetOrderLis
         } else {
             handleGetOrderList()
         }
-    }, [orderList])
+    }, [])
 
 
     const handleLogout = () => {

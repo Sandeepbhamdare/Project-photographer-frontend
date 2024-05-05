@@ -28,9 +28,10 @@ function App() {
 
   useEffect(() => {
 
-    handleGetOrderList()
-
-  }, [])
+    if (localUserData) {
+      handleGetOrderList()
+    }
+}, [])
 
 
   const onChage = (e) => {

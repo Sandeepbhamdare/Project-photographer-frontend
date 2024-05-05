@@ -85,8 +85,6 @@ const Login = () => {
                         <p>Password</p>
                         <input  type={showPass ? "text" : "password"} name="password" value={userLogin.password} onChange={onChange} />
                         <span className="password-icon" onClick={() => setShowpass(!showPass)}>{showPass?<FaEye />:<FaEyeSlash />}</span>
-                        {/*  */}
-
                     </div>
 
                     {
